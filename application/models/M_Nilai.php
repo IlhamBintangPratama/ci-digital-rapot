@@ -26,6 +26,7 @@ class M_Nilai extends CI_Model{
 	function delete_data($where,$table){
 		$this->db->where($where);
 		$this->db->delete($table);
-	}		
+	}	
+	
 }
 ?>

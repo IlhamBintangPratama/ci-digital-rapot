@@ -18,19 +18,19 @@
                  
                      <div class="row">
                         <?php if($hapus = $this->session->flashdata('hapus')): ?>
-                          <div class="alert alert-success alert-block">
+                          <div id="notif" class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">x</button>
                             <?= $hapus ?>
                           </div>
                         <?php endif ?>
                         <?php if($simpan = $this->session->flashdata('simpan')): ?>
-                          <div class="alert alert-success alert-block">
+                          <div id="notif" class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">x</button>
                             <?= $simpan ?>
                           </div>
                         <?php endif ?>
                           <?php if($update = $this->session->flashdata('update')): ?>
-                          <div class="alert alert-success alert-block">
+                          <div id="notif" class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">x</button>
                             <?= $update ?>
                           </div>
@@ -49,14 +49,16 @@
                                                             <div class="form-group col-md-3">
                                                               <label for="">Pilih Semester</label>
                                                               <select class="form-control" name="semester" >
+                                                              <option value="" disabled selected>-pilih-</option>
                                                              <?php foreach($semester as $s){ ?>
                                                                 <option value="<?php echo $s->id_semester; ?>"><?php echo $s->semester; ?></option>
                                                                 <?php } ?>
                                                               </select>
+                                                              <?= form_error('semester')?>
                                                             </div>
                                                           
                                                            <div class="form-group col-md-3">
-                                                              <input type="hidden" name="rayon" value="<?php echo $this->session->userdata('id_rayon') ?>">
+                                                              <input type="hidden" name="rombel" value="<?php echo $this->session->userdata('id_rombel') ?>">
                                                             
                                                              <button type="submit" class="btn btn-primary mt-4" style="height: 40px; width: 5rem">OK</button>
                                                            
@@ -91,7 +93,14 @@
                         </div>  
                     </div>
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                <script>
+                    setTimeout(function() {
+                    $('#notif').fadeOut('slow');}, 3000
+                    );
+                </script>
         </div>
     </div>
-<script type="text/javascript" src="<?php echo base_url('assets/scripts/main.js') ?>"></script></body>
+<script type="text/javascript" src="<?php echo base_url('assets/scripts/main.js') ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/scripts/jquery.min.js') ?>"></script>
+</body>
 </html>

@@ -9,21 +9,21 @@ class Ps extends CI_Controller {
 
     $this->load->model('M_Nilai');
     $this->load->model('AbsenModel');
-
+    $this->load->library('form_validation');
   } 
 
   public function index()
   {
-    $rayon = $this->input->post('rayon');
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel AND id_rayon = 1")->result();
+    $rombel = $this->input->post('rombel');
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel")->result();
     $this->load->view('ps/siswa',$data);
   } 
 
   public function siswa($id = NULL)
   {
 
-    $rayon = $this->input->post('rayon');
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel AND id_rayon = $id ORDER BY tb_rombel.id_rombel ASC , tb_siswa.nama ASC")->result();
+    $rombel = $this->input->post('rombel');
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_siswa.id_rombel = $id ORDER BY tb_rombel.rombel ASC,tb_siswa.nama ASC")->result();
     $this->load->view('ps/siswa',$data);
 
   } 
@@ -39,6 +39,12 @@ class Ps extends CI_Controller {
     }
   public function data_detail($id = NULL)
   {   
+      $rules = [
+        [
+          'field' => 'jenis',
+          'rules' => 'required'
+        ]
+      ];
         $data['jenis'] = $this->M_Nilai->get_data('tb_jenis')->result();
         $this->db->where('nis', $id);
         $nis = $this->input->post('nis');
@@ -46,13 +52,15 @@ class Ps extends CI_Controller {
 
         $rombel = $this->input->post('rombel');
         $jenis = $this->input->post('jenis');
-     
-
+      
+        $this->form_validation->set_rules($rules);
+        if($this->form_validation->run()==FALSE)
+        {
+          return $this->load->view('ps/detailsiswa', $data);
+        }
+        
         $data['p'] = $this->db->query("SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis = $jenis and tb_siswa.nis = $nis and tb_nilai.id_kategori = 1")->result();
         $data['k'] = $this->db->query("SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis = $jenis and tb_siswa.nis = $nis and tb_nilai.id_kategori = 2")->result();  
-
-
-
 
         $this->load->view('ps/data_detail', $data);
   }
@@ -103,13 +111,24 @@ class Ps extends CI_Controller {
 
   public function add_absensi()
   {
-        $rayon = $this->input->post('rayon');
-        $semester = $this->input->post('semester');
-
+    $rules = [
+      [
+        'field' => 'semester',
+        'rules' => 'required'
+      ]
+    ];
+    $rombel = $this->input->post('rombel');
+    $semester = $this->input->post('semester');
 
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
-      $data['content'] = $this->db->query("SELECT * FROM tb_rayon,tb_siswa,tb_rombel,tb_absensi WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rayon.id_rayon = $rayon and tb_siswa.nis = tb_absensi.nis and tb_siswa.id_rayon = $rayon and tb_absensi.id_semester = $semester");  
-      $data['sem'] = $this->input->post('semester');
+
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      return $this->load->view('ps/absensi',$data);
+    }
+
+    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel,tb_absensi WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa.nis = tb_absensi.nis and tb_siswa.id_rombel = $rombel and tb_absensi.id_semester = $semester");  
+    $data['sem'] = $this->input->post('semester');
 
     $this->load->view('ps/add_absensi',$data);
 
@@ -117,13 +136,24 @@ class Ps extends CI_Controller {
 
   public function add_upd()
   {
-    $rayon = $this->input->post('rayon');
+    $rules = [
+      [
+        'field' => 'semester',
+        'rules' => 'required'
+      ]
+    ];
+    $rombel = $this->input->post('rombel');
     $semester = $this->input->post('semester');
 
     $data['sem'] = $this->input->post('semester');
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
-    $data['content'] = $this->db->query("SELECT * FROM tb_rayon,tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rayon.id_rayon = $rayon and tb_siswa.id_rayon = $rayon")->result();  
-    $data['upd'] = $this->db->query("SELECT * FROM tb_upd,tb_siswa where tb_siswa.nis = tb_upd.nis AND tb_siswa.id_rayon = $rayon and tb_upd.semester = $semester  ")->result();
+
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      return $this->load->view('ps/upd',$data);
+    }
+    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa.id_rombel = $rombel")->result();  
+    $data['upd'] = $this->db->query("SELECT * FROM tb_upd,tb_siswa where tb_siswa.nis = tb_upd.nis AND tb_siswa.id_rombel = $rombel and tb_upd.semester = $semester  ")->result();
     $this->load->view('ps/add_upd',$data);
   }
 
@@ -147,13 +177,26 @@ class Ps extends CI_Controller {
 
    public function add_prestasi()
  {
-    $rayon = $this->input->post('rayon');
+    $rules = [
+      [
+        'field' => 'semester',
+        'rules' => 'required'
+      ]
+    ];
+
+    $rombel = $this->input->post('rombel');
     $semester = $this->input->post('semester');
 
     $data['sem'] = $this->input->post('semester');
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
-    $data['content'] = $this->db->query("SELECT * FROM tb_rayon,tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rayon.id_rayon = $rayon and tb_siswa.id_rayon = $rayon")->result();  
-    $data['prestasi'] = $this->db->query("SELECT * FROM tb_prestasi,tb_siswa where tb_siswa.nis = tb_prestasi.nis AND tb_siswa.id_rayon = $rayon and tb_prestasi.semester = $semester  ")->result();
+
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      return $this->load->view('ps/prestasi',$data);
+    }
+
+    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa.id_rombel = $rombel")->result();  
+    $data['prestasi'] = $this->db->query("SELECT * FROM tb_prestasi,tb_siswa where tb_siswa.nis = tb_prestasi.nis AND tb_siswa.id_rombel = $rombel and tb_prestasi.semester = $semester  ")->result();
     $this->load->view('ps/add_prestasi',$data);
   }
   public function add_prestasinilai($id = null)
@@ -203,6 +246,7 @@ class Ps extends CI_Controller {
 
   public function save(){
     // Ambil data yang dikirim dari form
+
     $id = $_POST['id'];
     $nis = $_POST['nis']; // Ambil data nis dan masukkan ke variabel nis
     $id_semester = $_POST['semester']; // Ambil data nama dan masukkan ke variabel nama
@@ -231,9 +275,9 @@ class Ps extends CI_Controller {
     // Cek apakah query insert nya sukses atau gagal
     if($sql){ // Jika sukses
       $this->session->set_flashdata('simpan','Berhasil Disimpan');    
-    redirect(base_url('Ps'),'refresh');
+    redirect(base_url('Ps/add_absensi'));
     }else{ // Jika gagal
-      echo "gagal";
+      redirect(base_url('Ps/add_absensi')); 
     }
   }
 
@@ -247,12 +291,23 @@ class Ps extends CI_Controller {
 
   public function datarapot()
   {
-    $rayon = $this->input->post('rayon');
+    $rules = [
+      [
+        'field' => 'semester',
+        'rules' => 'required'
+      ]
+    ];
+
+    $rombel = $this->input->post('rombel');
     $data['semester'] = $this->input->post('semester');
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
 
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      return $this->load->view('ps/rapot' ,$data);
+    }
 
-     $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel  WHERE tb_siswa.id_rombel = tb_rombel.id_rombel AND id_rayon = $rayon ORDER BY tb_rombel.id_rombel ASC , tb_siswa.nama ASC")->result();
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_siswa.id_rombel = $rombel ORDER BY tb_rombel.id_rombel ASC , tb_siswa.nama ASC")->result();
     $this->load->view('ps/datarapot',$data);
 
   }

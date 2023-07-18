@@ -97,11 +97,13 @@
                                                    <h6>:</h6>
                                                </div>
                                                <div class="col-md-3">
-                                                        <select class="form-control" name="jenis" >
-                                                     <?php foreach($jenis as $j){ ?>
-                                                   <option value="<?php echo $j->id_jenis; ?>"><?php echo $j->nama_ujian; ?></option>
+                                                <select class="form-control" name="jenis" >
+                                                    <option value="" disabled selected>-pilih-</option>
+                                                    <?php foreach($jenis as $j){ ?>
+                                                    <option value="<?php echo $j->id_jenis; ?>"><?php echo $j->nama_ujian; ?></option>
                                                     <?php } ?>
-                                                  </select>
+                                                </select>
+                                                <?= form_error('jenis')?>
                                                </div>   
                                             </div>
                                                 <div class="col-md-4"></div>

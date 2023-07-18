@@ -48,11 +48,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" value="<?php echo $dtortu->nama; ?>" name="nama"> 
+                                            <input type="text" class="form-control" value="<?php echo $dtortu->nama; ?>" required name="nama"> 
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input type="text" class="form-control" value="<?php echo $dtortu->username; ?>" name="username"> 
+                                            <input type="text" class="form-control" value="<?php echo $dtortu->username; ?>" required name="username"> 
                                         </div>              
                                           <div class="row">
                                           <div class="col-md-10">

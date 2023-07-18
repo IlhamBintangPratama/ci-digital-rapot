@@ -134,33 +134,36 @@
                         </div>
                     </div>
                     <!-- Portfolio Item 4-->
-                    <a href="<?php echo base_url('murid/hasil/8') ?>"></a>
+                    <a href="<?php echo base_url('murid/hasil/8') ?>">
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
                             <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/ujian/uh8.png') ?>" alt="" />
+                            </a>
                         </div>
                     </div>
                     <!-- Portfolio Item 5-->
-                    <a href="<?php echo base_url('murid/hasil/11') ?>"></a>
+                    <a href="<?php echo base_url('murid/hasil/11') ?>">
                     <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
                             <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/ujian/uts.png') ?>" alt="" />
+                            </a>
                         </div>
                     </div>
                     <!-- Portfolio Item 6-->
-                    <a href="<?php echo base_url('murid/hasil/12') ?>"></a>
+                    <a href="<?php echo base_url('murid/hasil/12') ?>">
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
                             <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/ujian/ukk.png') ?>" alt="" />
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -176,8 +179,8 @@
                 <div class="row">
                     <!-- Footer Location-->
                     <div class="col-lg-6 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">SMK WIKRAMA BOGOR</h4>
-                        <p class="lead mb-0">Jl. Raya Wangun Kelurahan Sindangsari<br />Bogor, Jawa Barat</p>
+                        <<h4 class="text-uppercase mb-4">SMK KOMPUTAMA JERUKLEGI</h4>
+                        <p class="lead mb-0">Jl. Jambu Sari No 99 Jeruklegi-Cilacap<br />Cilacap, Jawa Tengah</p>
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-6 mb-5 mb-lg-0">
@@ -191,7 +194,7 @@
         </footer>
         <!-- Copyright Section-->
         <section class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright © dradph 2020</small></div>
+            <!-- <div class="container"><small>Copyright © dradph 2020</small></div> -->
         </section>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">

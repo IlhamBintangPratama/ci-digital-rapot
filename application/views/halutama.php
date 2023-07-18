@@ -39,7 +39,7 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">Aplikasi Rapot Digital Yayasan Nurjalin Cilacap</p>
+                <p class="masthead-subheading font-weight-light mb-0">Aplikasi Rapot Digital SMK Jeruklegi Cilacap</p>
             </div>
         </header>
         <!-- Portfolio Section-->
@@ -57,13 +57,24 @@
                 <div class="row">
                     <!-- Portfolio Item 1-->
                     <div class="col-md-6 col-lg-4 mb-5">
+                        <a href="<?php echo base_url('LoginKepsek') ?>">
+                        <div class="portfolio-item mx-auto" data-toggle="modal">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/kepsek.jpg') ?>" alt="" />
+                        </div>
+                    </div>
+                    </a>
+                    
+                    <div class="col-md-6 col-lg-4 mb-5">
                         
                        <a href="<?php echo base_url('LoginGuru') ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/guru.png') ?>" alt="" />
+                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/guru.jpg') ?>" alt="" />
                         </div>
                         </a>
                     </div>
@@ -74,21 +85,12 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/ps.png') ?>" alt="" />
+                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/ps.jpg') ?>" alt="" />
                         </div>
                     </div>
                     </a>
                     <!-- Portfolio Item 3-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                       <a href="<?php echo base_url('LoginKepsek') ?>">
-                        <div class="portfolio-item mx-auto" data-toggle="modal">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/siswa.png') ?>" alt="" />
-                        </div>
-                    </div>
-                    </a>
+                    
                 </div>
                 <div class="row">
                     <!-- Portfolio Item 4-->
@@ -98,7 +100,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/ortu.png') ?>" alt="" />
+                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/ortu.jpg') ?>" alt="" />
                         </div>
                     </div>
                     </a>
@@ -109,7 +111,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/siswa.png') ?>" alt="" />
+                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/siswa.jpg') ?>" alt="" />
                         </div>
                     </div>
                     </a>
@@ -119,7 +121,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/tu.png') ?>" alt="" />
+                            <img class="img-fluid" src="<?php echo base_url('assets/halutama/assets/img/portfolio/tu.jpg') ?>" alt="" />
                             
                         </div>
                     </div>
@@ -172,9 +174,9 @@
             </div>
         </footer>
         <!-- Copyright Section-->
-        <section class="copyright py-4 text-center text-white">
+        <!-- <section class="copyright py-4 text-center text-white">
             <div class="container"><small>Copyright © dradph 2020</small></div>
-        </section>
+        </section> -->
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">
             <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a>

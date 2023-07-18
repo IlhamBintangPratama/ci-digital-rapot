@@ -57,13 +57,13 @@
                                     
                                 </li> 
                                 <li>
-                                    <a href="<?= base_url()?>Ps/siswa/<?php echo $this->session->userdata('id_rayon') ?>" >
+                                    <a href="<?= base_url()?>Ps/siswa/<?php echo $this->session->userdata('id_rombel') ?>" >
                                         <i class="metismenu-icon pe-7s-file"></i>
                                         Data Siswa
                                     </a>
                                 </li>
                                  <li>
-                                    <a href="<?= base_url()?>Ps/rapot/<?php echo $this->session->userdata('id_rayon') ?>" >
+                                    <a href="<?= base_url()?>Ps/rapot/<?php echo $this->session->userdata('id_rombel') ?>" >
                                         <i class="metismenu-icon pe-7s-file"></i>
                                         Laporan Semester
                                     </a>

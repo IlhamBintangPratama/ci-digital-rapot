@@ -24,15 +24,16 @@
                         <div class="card-body">
                             <h5 class="card-title">Data Siswa</h5>
 
-                            <form method="get" action="<?php echo base_url(); ?>tu/datasiswa">
+                            <form method="post" action="<?php echo base_url(); ?>tu/datasiswa">
 
                                 <div class="form-row">
 
                                     <div class="form-group col-md-3">
-                                        <label for="">Rayon</label>
-                                        <select class="form-control" name="rayon">
-                                            <?php foreach($rayon as $r){ ?>
-                                            <option value="<?php echo $r->id_rayon; ?>" <?php if($_GET['rayon'] === $r->id_rayon){echo "selected";} ?>><?php echo $r->rayon; ?>
+                                        <label for="">Rombel</label>
+                                        <select class="form-control" name="rombel">
+                                            <option value="" disabled selected>-pilih-</option>
+                                            <?php foreach($rombel as $r){ ?>
+                                            <option value="<?php echo $r->id_rombel; ?>" <?php if($_POST['rombel'] === $r->id_rombel){echo "selected";} ?>><?php echo $r->rombel; ?>
                                             </option>
                                             <?php } ?>
                                         </select>
@@ -40,8 +41,9 @@
                                     <div class="form-group col-md-3">
                                         <label for="">Semester</label>
                                         <select class="form-control" name="semester">
+                                        <option value="" disabled selected>-pilih-</option>
                                             <?php foreach($semester as $j){ ?>
-                                            <option value="<?php echo $j->id_semester; ?>" <?php if($_GET['semester'] === $j->id_semester){echo "selected";} ?>><?php echo $j->semester; ?>
+                                            <option value="<?php echo $j->id_semester; ?>" <?php if($_POST['semester'] === $j->id_semester){echo "selected";} ?>><?php echo $j->semester; ?>
                                             </option>
                                             <?php } ?>
                                         </select>
@@ -77,9 +79,7 @@
                                         <td><?php echo $key->nis ?></td>
                                         <td><?php echo $key->nama ?></td>
                                         <td><?php echo $key->rombel ?></td>
-                                        <td class="text-center"><a
-                                                href="<?php echo base_url()?>tu/datarapotdetail/<?= $this->input->post('semester')?>/<?= $key->nis; ?>">Cetak
-                                                Nilai</a></td>
+                                        <td class="text-center"><a href="<?php echo base_url()?>tu/datarapotdetail/<?= $this->input->post('semester')?>/<?= $key->nis; ?>">Cetak Nilai</a></td>
                                     </tr>
 
                                     <?php 

@@ -29,8 +29,8 @@
                 <div class="row">
                     <!-- Footer Location-->
                     <div class="col-lg-6 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">SMK WIKRAMA BOGOR</h4>
-                        <p class="lead mb-0">Jl. Raya Wangun Kelurahan Sindangsari<br />Bogor, Jawa Barat</p>
+                        <h4 class="text-uppercase mb-4">Yayasan Nurjalin Cilacap</h4>
+                        <p class="lead mb-0">Jl. Jambu Sari No 99 Jeruklegi-Cilacap<br />Cilacap, Jawa Tengah</p>
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-6 mb-5 mb-lg-0">
@@ -44,7 +44,7 @@
         </footer>
         <!-- Copyright Section-->
         <section class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright © dradph 2020</small></div>
+            <!-- <div class="container"><small>Copyright © dradph 2020</small></div> -->
         </section>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">

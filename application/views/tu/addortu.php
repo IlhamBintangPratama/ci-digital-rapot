@@ -47,23 +47,28 @@
                                     <div class="form-group">
                                       <label for="nis">Nama Siswa</label>
                                         <select name="nis" id="nis" class="form-control">
+                                            <option value="" disabled selected>-pilih-</option>
                                             <?php foreach ($nis as $data) : ?>
                                             <option value="<?php echo $data->nis; ?>"><?php echo $data->nama; ?></option>
                                             <?php endforeach ?>
                                         </select>
+                                        <?= form_error('nis')?>
                                     </div>
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="text" class="form-control" name="nama" required>
+                                        <?= form_error('nama')?>
                                     </div>
                                     <div class="form-group">
                                         <label>Username</label>
                                         <input type="text" class="form-control" name="username" required>
+                                        <?= form_error('username')?>
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" name="password" minlength="8"
+                                        <input type="password" class="form-control" name="password" minlength="8" minlength="8"
                                             required>
+                                            <?= form_error('password')?>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-10">

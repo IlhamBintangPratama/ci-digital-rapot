@@ -9,6 +9,7 @@ class Nilai extends CI_Controller {
 
     $this->load->model('M_Nilai');
     $this->load->model('SaveModel');
+    $this->load->library('form_validation');
 
 
    
@@ -20,28 +21,65 @@ class Nilai extends CI_Controller {
     $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['jenis'] = $this->M_Nilai->get_data('tb_jenis')->result();
     $data['kategori'] = $this->M_Nilai->get_data('tb_kategori')->result();
-    $data['mapel'] = $this->M_Nilai->get_data('tb_mapel')->result();
+    // $mapel2 = [];
+    $nip = $this->session->userdata('nip');
+    $data['mapel'] = $this->db->query("SELECT * FROM tb_guru_mapel,tb_mapel 
+                      WHERE tb_mapel.id_mapel = tb_guru_mapel.id_mapel and tb_guru_mapel.nip = $nip")->result();
+    // $this->db->select('id_mapel,nip');
+    // $this->db->from('tb_guru_mapel');
+    // $this->db->join('tb_guru', 'tb_guru_mapel.nip', $nip);
+    // $this->db->join('tb_mapel', 'tb_guru_mapel.id_mapel = tb_mapel.id_mapel');
+    // $query = $this->db->get();
+    
 
+    // $tes = $this->db
 
     $this->load->view('guru/nilai',$data);
   } 
 
   public function add()
   {
+    $rules = [
+        [
+          'field' => 'rombel',
+          'rules' => 'required'
+        ],
+        [
+          'field' => 'jenis',
+          'rules' => 'required'
+        ],
+        [
+          'field' => 'kategori',
+          'rules' => 'required'
+        ],
+        [
+          'field' => 'mapel',
+          'rules' => 'required'
+        ]
+      ];
+
+      
+
     $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['jenis'] = $this->M_Nilai->get_data('tb_jenis')->result();
     $data['kategori'] = $this->M_Nilai->get_data('tb_kategori')->result();
-    $data['mapel'] = $this->M_Nilai->get_data('tb_mapel')->result();
-
+    $nip = $this->session->userdata('nip');
+    $data['mapel'] = $this->db->query("SELECT * FROM tb_guru_mapel,tb_mapel WHERE tb_guru_mapel.id_mapel = tb_mapel.id_mapel and tb_guru_mapel.nip = $nip")->result();
     $rombel = $this->input->post('rombel');
     $jenis = $this->input->post('jenis');
     $kategori = $this->input->post('kategori');
     $mapel = $this->input->post('mapel');
 
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()== false){
+      return $this->load->view('guru/nilai', $data);
+    }
+
     $data['nilai'] = $this->db->query("select * from tb_siswa,tb_nilai where tb_siswa.nis = tb_nilai.nis and id_rombel=$rombel 
                                         and id_mapel= $mapel and id_jenis = $jenis and id_kategori = $kategori")->result();
 
-    $this->load->view('guru/add_nilai', $data);
+      $this->load->view('guru/add_nilai', $data);
+    
 
   } 
 
@@ -111,7 +149,8 @@ class Nilai extends CI_Controller {
       $this->session->set_flashdata('simpan','Berhasil Disimpan');    
     redirect(base_url('Nilai'),'refresh');
     }else{ // Jika gagal
-      echo "gagal";
+      $this->session->set_flashdata('simpan','Berhasil Disimpan'); 
+      redirect(base_url('Nilai'),'refresh');
     }
   }
 

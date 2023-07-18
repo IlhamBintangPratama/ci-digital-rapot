@@ -20,17 +20,17 @@ class LoginOrtu extends CI_Controller {
 
 
 		$user = $this->OrtuModel->get($username); // Panggil fungsi get yang ada di UserModel.php
-
 		if(empty($user)){ // Jika hasilnya kosong / user tidak ditemukan
 			$this->session->set_flashdata('message', 'Username tidak ditemukan'); // Buat session flashdata
 			redirect('LoginOrtu'); // Redirect ke halaman login
 		}else{
 			if($password == $user->password){ // Jika password yang diinput sama dengan password yang didatabase
+				// $namasiswa = $this->db->query(`select * from tb_siswa where nis = '$user->nis'`);
 				$session = array(
 					'authenticated'=>true, // Buat session authenticated dengan value true
 					'username'=>$user->username,  // Buat session username
-					'nama'=>$user->nama, // Buat session authenticated
-					'nis'=>$user->nis
+					'nis'=>$user->nis, // Buat session authenticated
+					// ''=>$tes->nama
 				);
 
 				$this->session->set_userdata($session); // Buat session sesuai $session
@@ -44,6 +44,6 @@ class LoginOrtu extends CI_Controller {
 
 	public function logout(){
 		$this->session->sess_destroy(); // Hapus semua session
-		redirect(''); // Redirect ke halaman login
+		redirect('/'); // Redirect ke halaman login
 	}
 }

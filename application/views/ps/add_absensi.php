@@ -57,11 +57,12 @@
                                                     <?php echo $s->semester; ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <?= form_error('semester') ?>
                                         </div>
 
                                         <div class="form-group col-md-3">
-                                            <input type="hidden" name="rayon"
-                                                value="<?php echo $this->session->userdata('id_rayon') ?>">
+                                            <input type="hidden" name="rombel"
+                                                value="<?php echo $this->session->userdata('id_rombel') ?>">
 
 
 

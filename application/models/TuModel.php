@@ -26,6 +26,12 @@ class TuModel extends CI_Model {
     function insertDataPs($data){
         $this->db->insert('tb_ps', $data);
     }
+    function insertDataGuru($data){
+        $this->db->insert('tb_guru', $data);
+    }
+    function insertDataGuruMapel($data){
+        $this->db->insert_batch('tb_guru_mapel', $data);
+    }
     function getDataPsDetail($id_ps){
         $this->db->where('id_ps', $id_ps);
         $query = $this->db->get('tb_ps');
@@ -35,9 +41,18 @@ class TuModel extends CI_Model {
         $this->db->where('id_ps', $id_ps);
         $this->db->update('tb_ps', $data);
     }
+    function updateDataMapel($id_mapel, $data){
+        $this->db->where('id_mapel', $id_mapel);
+        $this->db->update('tb_mapel', $data);
+    }
     function getDataSiswaDetail($nis){
         $this->db->where('nis', $nis);
         $query = $this->db->get('tb_siswa');
+        return $query->row();
+    }
+    function getDataMapelDetail($id_mapel){
+        $this->db->where('id_mapel', $id_mapel);
+        $query = $this->db->get('tb_mapel');
         return $query->row();
     }
     function updateDataSiswa($nis, $data){
@@ -56,4 +71,51 @@ class TuModel extends CI_Model {
     function insertDataOrtu($data){
         $this->db->insert('tb_ortu', $data);
     }
+    function insertDataMapel($data){
+        $mapel = $this->db->insert('tb_mapel', $data);
+        return $this->db->insert_id();
+    }
+    function getDataGuruDetail($id_mapel){
+        // $this->db->where('nip', $nip);
+        // var_dump($id_mapel);
+        // die;
+        $query = $this->db->query("SELECT * FROM tb_guru_mapel,tb_guru,tb_mapel WHERE tb_guru_mapel.nip = tb_guru.nip AND tb_mapel.id_mapel = $id_mapel");
+        return $query->row();
+    }
+    function updateDataGuru($nip, $data){
+        $this->db->where('nip', $nip);
+        $this->db->update('tb_guru', $data);
+    }
+    function updateDataGuruMapel($id, $data){
+        $this->db->where('id_mapel', $id);
+        $this->db->update('tb_guru_mapel', $data);
+    }
+    public function delete_mapel($id_mapel)
+
+    {
+
+        return $this->db->delete('tb_mapel', array('id_mapel' => $id_mapel));
+
+    }
+    public function delete_ortu($nis)
+
+    {
+
+        return $this->db->delete('tb_ortu', array('nis' => $nis));
+
+    }
+    public function delete_siswa($nis)
+
+    {
+
+        return $this->db->delete('tb_siswa', array('nis' => $nis));
+
+    }
+    public function delete_nilai($nis)
+
+    {
+
+        return $this->db->delete('tb_nilai', array('nis' => $nis));
+
+    }	
 }

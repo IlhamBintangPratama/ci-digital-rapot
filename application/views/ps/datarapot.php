@@ -47,7 +47,7 @@
                                 <div class="main-card mb-3 card">
                                     <div class="card-body"><h5 class="card-title">Data Siswa</h5>
                                         <form method="post" action="<?php base_url('ps/datarapot') ?>">
-                                        <input type="hidden" name="rayon" value="<?php echo $this->session->userdata('id_rayon') ?>">
+                                        <input type="hidden" name="rombel" value="<?php echo $this->session->userdata('id_rombel') ?>">
                                         
                                       
                                                   <div class="form-row">
@@ -55,6 +55,7 @@
                                                             <div class="form-group col-md-3">
                                                               <label for="">Semester</label>
                                                               <select class="form-control" name="semester" >
+                                                                <option value="" disabled selected>-pilih-</option>
                                                              <?php foreach($semester as $r){ ?>
                                                                 <option <?php if($_POST['semester'] == $r->id_semester){ echo 'selected="selected"'; } ?> value="<?php echo $r->id_semester; ?>"><?php echo $r->semester; ?></option>
                                                                 <?php } ?>

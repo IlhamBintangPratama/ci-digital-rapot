@@ -39,6 +39,24 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="<?= base_url('Tu/mapel') ?>">
+                                        <i class="metismenu-icon pe-7s-users"></i>
+                                        Data Mapel
+                                    </a>
+                                </li> 
+                                <!-- <li>
+                                    <a href="<?= base_url('Tu/ortu') ?>">
+                                        <i class="metismenu-icon pe-7s-users"></i>
+                                        Data Mapel
+                                    </a>
+                                </li> -->
+                                <li>
+                                    <a href="<?= base_url('Tu/guru') ?>">
+                                        <i class="metismenu-icon pe-7s-users"></i>
+                                        Data Guru
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="<?= base_url('Tu/siswa') ?>">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Data Siswa
@@ -55,7 +73,7 @@
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Data Ortu
                                     </a>
-                                </li>                                
+                                </li>                         
                         </div>
                     </div>
                 </div>   

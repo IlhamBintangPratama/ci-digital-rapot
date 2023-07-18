@@ -43,35 +43,29 @@
                                       <form method="post" action="<?php echo base_url('Tu/fungsiadd')?>">
                                         <div class="form-group">
                                             <label>Nis</label>
-                                            <input type="text" class="form-control" name="nis" required> 
+                                            <input type="text" class="form-control" name="nis" onkeypress="return hanyaAngka(event)" minlength="9" maxlength="9" required> 
+                                            <?= form_error('nis')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
                                             <input type="text" class="form-control" name="nama" required> 
+                                            <?= form_error('nama')?>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Rayon</label>
-                                            <select class="form-control" name="rayon">
-                                            <?php foreach($rayon as $r){ ?>
-                                              <option  value="<?php echo $r->id_rayon; ?>"><?php echo $r->rayon; ?></option>
-                                            <?php } ?>
-                                            </select>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label>Rombel</label>
                                             <select class="form-control" name="rombel">
+                                              <option value="" disabled selected>-pilih-</option>
                                             <?php foreach($rombel as $rm){ ?>
                                               <option  value="<?php echo $rm->id_rombel; ?>"><?php echo $rm->rombel; ?></option>
                                             <?php } ?>
                                             </select> 
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" class="form-control" name="username" required> 
+                                            <?= form_error('rombel')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" name="password" required> 
+                                            <input type="password" class="form-control" name="password" minlength="8" required> 
+                                            <?= form_error('passwword')?>
                                         </div>                
                                           <div class="row">
                                           <div class="col-md-10">
@@ -85,6 +79,19 @@
                         </div>  
                     </div>
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                <script>
+                  function hanyaAngka(evt) {
+                      var charCode = (evt.which) ? evt.which : event.keyCode
+                      if (charCode == 46 || (charCode >= 48 && charCode <= 57))
+                      
+                      return true;
+                          return false;
+                      
+                      }
+                      $(document).ready(function(){
+                          $('.chosen-select').chosen();
+                      })
+                </script>
         </div>
     </div>
 <script type="text/javascript" src="<?php echo base_url('assets/scripts/main.js') ?>"></script></body>

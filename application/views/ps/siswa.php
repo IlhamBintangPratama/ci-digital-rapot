@@ -47,7 +47,7 @@
                                 <div class="main-card mb-3 card">
                                     <div class="card-body"><h5 class="card-title">Data Siswa</h5>
                                         <form method="post" action="<?php base_url('ps/siswa') ?>">
-                                        <input type="hidden" name="rayon" value="<?php echo $this->session->userdata('id_rayon') ?>">
+                                        <input type="hidden" name="rombel" value="<?php echo $this->session->userdata('id_rombel') ?>">
                                         </form>
                                         <table class="mb-0 table table-striped">
 

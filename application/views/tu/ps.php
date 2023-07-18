@@ -21,12 +21,29 @@
                                     <div class="card-body"><h5 class="card-title">Data Pembimbing Siswa</h5>
 
                                     <a href="<?= base_url('Tu/addps') ?>" class="btn btn-primary mt-2 mb-4">Tambah Baru</a>
-                                    
+                                    <?php if($hapus = $this->session->flashdata('hapus')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $hapus ?>
+                                    </div>
+                                    <?php endif ?>
+                                    <?php if($simpan = $this->session->flashdata('simpan')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $simpan ?>
+                                    </div>
+                                    <?php endif ?>
+                                    <?php if($update = $this->session->flashdata('update')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $update ?>
+                                    </div>
+                                    <?php endif ?>
                                         <table class="mb-0 table table-striped">
                                             <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Rayon</th>
+                                                <th>Rombel</th>
                                                 <th>Nama</th>
                                                 <th>Username </th>
                                                 <th>Aksi</th>
@@ -40,7 +57,7 @@
                                                     ?>
                                             <tr>
                                                 <td><?php echo $no++ ?></td>
-                                                <td><?php echo $key->rayon ?></td>
+                                                <td><?php echo $key->rombel ?></td>
                                                 <td><?php echo $key->nama_ps ?></td>
                                                 <td><?php echo $key->username ?></td>
                                                 <td class="text-center"><a href="<?php echo base_url('Tu/editps')?>/<?php echo $key->id_ps?>">Change Data</a></td>
@@ -58,7 +75,14 @@
                     
                         </div>
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                <script>
+                    setTimeout(function() {
+                    $('#notif').fadeOut('slow');}, 3000
+                    );
+                </script>
         </div>
     </div>
-<script type="text/javascript" src="<?php echo base_url('assets/scripts/main.js') ?>"></script></body>
+<script type="text/javascript" src="<?php echo base_url('assets/scripts/main.js') ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/scripts/jquery.min.js') ?>"></script>
+</body>
 </html>

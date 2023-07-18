@@ -52,10 +52,10 @@
                                                   <div class="form-row">
         
                                                             <div class="form-group col-md-3">
-                                                              <label for="">Rayon</label>
-                                                              <select class="form-control" name="rayon" >
-                                                             <?php foreach($rayon as $r){ ?>
-                                                                <option value="<?php echo $r->id_rayon; ?>"><?php echo $r->rayon; ?></option>
+                                                              <label for="">Rombel</label>
+                                                              <select class="form-control" name="rombel" >
+                                                             <?php foreach($rombel as $r){ ?>
+                                                                <option value="<?php echo $r->id_rombel; ?>"><?php echo $r->rombel; ?></option>
                                                                 <?php } ?>
                                                               </select>
                                                             </div>

@@ -26,20 +26,24 @@
                                                   <div class="form-row">
         
                                                             <div class="form-group col-md-3">
-                                                              <label for="">Rayon</label>
-                                                              <select class="form-control" name="rayon" >
-                                                             <?php foreach($rayon as $r){ ?>
-                                                                <option value="<?php echo $r->id_rayon; ?>"><?php echo $r->rayon; ?></option>
+                                                              <label for="">Rombel</label>
+                                                              <select class="form-control" name="rombel" >
+                                                                <option value="" disabled selected>-pilih-</option>
+                                                             <?php foreach($rombel as $r){ ?>
+                                                                <option value="<?php echo $r->id_rombel; ?>"><?php echo $r->rombel; ?></option>
                                                                 <?php } ?>
                                                               </select>
+                                                              <?= form_error('rombel')?>
                                                             </div>
                                                            <div class="form-group col-md-3">
                                                               <label for="">Semester</label>
                                                               <select class="form-control" name="semester" >
+                                                                <option value="" disabled selected>-pilih-</option>
                                                              <?php foreach($semester as $j){ ?>
                                                                 <option value="<?php echo $j->id_semester; ?>"><?php echo $j->semester; ?></option>
                                                                 <?php } ?>
                                                               </select>
+                                                              <?= form_error('semester')?>
                                                             </div>
                                                            <div class="form-group col-md-3">
                                                             

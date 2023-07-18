@@ -42,7 +42,10 @@ class Page extends MY_Controller {
 	function halutamaortu()
 	{
 		$data['content'] = $this->db->get('tb_siswa');
-		//$data['siswa'] = $this->db->query('SELECT * FROM tb_ortu,tb_siswa WHERE tb_ortu.nis = tb_siswa.nis and tb_ortu.nis = $nis ');
+		$nis = $this->session->userdata('nis');
+		$data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_siswa.nis = $nis")->result();
+		// var_dump($data['siswa']);
+		// die();
 		$this->load->view('halutamaortu',$data);
 	}
 

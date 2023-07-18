@@ -52,8 +52,8 @@
                                     		</div>
                                     		<div class="col-md-10 text-right" style="line-height: 18px">
                                     			<dl>                                    			
-                                    			<dt>YAYASAN NURJALIN CILACAP</dt>
-                                    			<dd>Jalan Raya Wangun Kel. Sindangsari - Bogor, Telp./Fax (0251) 8242411 <br> Website : www.smkwikrama.sch.id, e-mail : prohumasi@smkwikrama.sch.id</dd>
+                                    			<dt>SMK KOMPUTAMA JERUKLEGI</dt>
+                                    			<dd>Jl. Jambu Sari No 99 Jeruklegi-Cilacap, Jawa Tengah Telp./Fax (0828) 2345425 <br> Website: http://smkkomputamajeruklegi.sch.id, Instagram : @mediakomputama, E-mail : smkkomputama_jeruklegi@yahoo.co.id</dd>
                                     			
 											</dl>
 
@@ -137,7 +137,7 @@
                                                </div>
                                                <div class="col-md-6">
                                                    <p>
-                                                       2019-2020
+                                                      2022-2023
                                                    </p>
                                                </div>
                                                <input type="hidden" name="nis" value="<?php echo $key->nis  ?>"  >
@@ -191,7 +191,7 @@
                                         <table class="table table-bordered"  style="border: 2px solid black">
                                         <?php foreach ($sem->result() as $key) {
                                          $total = array($key->s,$key->i,$key->a);
-                                         $hasil = 100 - (132 - array_sum($total)) / 132 * 1 / 100;
+                                         $hasil = (144 - array_sum($total)) / 144 * 100;;
                                                     
                                          ?>
                                         	<tr>
@@ -566,17 +566,17 @@
                                         	</div>
                                         </dl>
 
-                                        <dl class="font-weight-bold mt-4">
+                                        <!-- <dl class="font-weight-bold mt-4">
                                         	<dd>G .	Tanggapan Orang Tua/Wali</dd>
                                         	<div class="col-lg-12 mt-3" style="border: 2px solid black; height: 20vh;">
                                         		
                                         	</div>
-                                        </dl>
+                                        </dl> -->
 
                                         <div class="col-lg-12 mt-4" style="border: 2px solid black; height: 25vh;">
                                         	<div class="row">
                                         		<div class="col-md-4">
-                                        			<p>Disahkan Oleh <br>Kepala SMK Wikrama Bogor</p>
+                                        			<p>Disahkan Oleh <br>Kepala SMK KOMPUTAMA JERUKLEGI</p>
                                         			<br><br><br>
                                         			<p>Iin Mulyani,S.Si.</p>
                                         		</div>
@@ -607,7 +607,7 @@
 												}
                                         		 ?>
                                         		<div class="col-md-4">
-                                        			<p>Bogor, <?php echo tgl_indo(date('Y-m-d')); ?> <br>Pembimbing</p>
+                                        			<p>Cilacap, <?php echo tgl_indo(date('Y-m-d')); ?> <br>Pembimbing</p>
                                         			<br><br><br>
                                         			<p>..........................</p>
                                         		</div>

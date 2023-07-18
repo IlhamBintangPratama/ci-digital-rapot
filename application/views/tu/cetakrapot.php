@@ -22,13 +22,12 @@
                                     <div class="card-body">
                                       <div class="row">
                                         <div class="col-md-2">
-                                          <img style="width: 10vh" src="<?php echo base_url('assets/halutama/assets/img/portfolio/logo_wk.png') ?>">
+                                          <img style="width: 10vh" src="<?php echo base_url('assets/LOGO/20200211_081304.png') ?>">
                                         </div>
                                         <div class="col-md-10 text-right" style="line-height: 18px">
-                                          <dl>                                          
-                                          <dt>YAYASAN PRAWITAMA</dt>
-                                          <dt>SMK WIKRAMA BOGOR</dt>
-                                          <dd>Jalan Raya Wangun Kel. Sindangsari - Bogor, Telp./Fax (0251) 8242411 <br> Website : www.smkwikrama.sch.id, e-mail : prohumasi@smkwikrama.sch.id</dd>
+                                          <dl>
+                                          <dt>SMK KOMPUTAMA JERUKLEGI</dt>
+                                          <dd>Jl. Jambu Sari No 99 Jeruklegi-Cilacap, Jawa Tengah Telp./Fax (0828) 2345425 <br>Website: http://smkkomputamajeruklegi.sch.id, Instagram : @mediakomputama, E-mail : smkkomputama_jeruklegi@yahoo.co.id</dd>
                                           
                       </dl>
 
@@ -112,7 +111,7 @@
                                                </div>
                                                <div class="col-md-6">
                                                    <p>
-                                                       2019-2020
+                                                      2022-2023
                                                    </p>
                                                </div>
                                                <input type="hidden" name="nis" value="<?php echo $key->nis  ?>"  >
@@ -166,14 +165,14 @@
                                         <table class="table table-bordered"  style="border: 2px solid black">
                                         <?php foreach ($sem->result() as $key) {
                                          $total = array($key->s,$key->i,$key->a);
-                                         $hasil = 100 - (132 - array_sum($total)) / 132 * 1 / 100;
+                                         $hasil = (144 - array_sum($total)) / 144 * 100;;
                                                     
                                          ?>
                                           <tr>
                                             <td>
                                               <b>Deskripsi :</b> <br>
                                               1. Peserta didik menunjukkan sikap sungguh-sungguh dalam menerapkan sikap Spiritual, Jujur, Disiplin, Tanggung jawab, Toleransi, Gotong Royong, Sopan atau Santun dan Percaya diri <br>
-                                              2. Persentase kehadiran siswa  <?php echo round($hasil,2) ?>%.
+                                              2. Persentase kehadiran siswa  <?php echo round($hasil) ?>%.
                                               
                                                       
                                             </td>
@@ -202,12 +201,15 @@
                                               <th>Angka</th>
                                               <th>Predikat</th>
                                               <th>Deskripsi</th>
-                        <th>KB*</th>
+                                              <th>KB*</th>
                                               <th>Angka</th>
                                               <th>Predikat</th>
                                               <th>Deskripsi</th>
 
                                             </tr>
+                                            <!-- <tr>
+                                              <th colspan="12" style="text-align: left; padding-left: 2%;">Normatif</th>
+                                            </tr> -->
                                         
                                           </thead>
                                           <tbody>
@@ -244,7 +246,7 @@
                                                     $ket = 'sangat baik';
                                                   }
 
-                        $totalk = array(
+                                                      $totalk = array(
                                                       $uh1k[$index]->nilai,
                                                       $uh2k[$index]->nilai,
                                                       $uh3k[$index]->nilai,
@@ -313,7 +315,7 @@
                                               <th>Angka</th>
                                               <th>Predikat</th>
                                               <th>Deskripsi</th>
-                        <th>KB*</th>
+                                              <th>KB*</th>
                                               <th>Angka</th>
                                               <th>Predikat</th>
                                               <th>Deskripsi</th>
@@ -541,17 +543,17 @@
                                           </div>
                                         </dl>
 
-                                        <dl class="font-weight-bold mt-4">
+                                        <!-- <dl class="font-weight-bold mt-4">
                                           <dd>G . Tanggapan Orang Tua/Wali</dd>
                                           <div class="col-lg-12 mt-3" style="border: 2px solid black; height: 20vh;">
                                             
                                           </div>
-                                        </dl>
+                                        </dl> -->
 
                                         <div class="col-lg-12 mt-4" style="border: 2px solid black; height: 25vh;">
                                           <div class="row">
                                             <div class="col-md-4">
-                                              <p>Disahkan Oleh <br>Kepala SMK Wikrama Bogor</p>
+                                              <p>Disahkan Oleh <br>Kepala SMK KOMPUTAMA JERUKLEGI</p>
                                               <br><br><br>
                                               <p>Iin Mulyani,S.Si.</p>
                                             </div>
@@ -582,7 +584,7 @@
                         }
                                              ?>
                                             <div class="col-md-4">
-                                              <p>Bogor, <?php echo tgl_indo(date('Y-m-d')); ?> <br>Pembimbing</p>
+                                              <p>Cilacap, <?php echo tgl_indo(date('Y-m-d')); ?> <br>Pembimbing</p>
                                               <br><br><br>
                                               <p>..........................</p>
                                             </div>

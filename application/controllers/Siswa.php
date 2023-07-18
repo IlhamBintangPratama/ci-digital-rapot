@@ -7,6 +7,7 @@ class Siswa extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('M_Nilai');
+		$this->load->library('form_validation');
 	}	
 
 	public function index()
@@ -15,25 +16,57 @@ class Siswa extends CI_Controller {
 	$data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['jenis'] = $this->M_Nilai->get_data('tb_jenis')->result();
     $data['kategori'] = $this->M_Nilai->get_data('tb_kategori')->result();
-	$data['mapel'] = $this->M_Nilai->get_data('tb_mapel')->result();
+	$nip = $this->session->userdata('nip');
+    $data['mapel'] = $this->db->query("SELECT * FROM tb_guru_mapel,tb_mapel 
+                    WHERE tb_mapel.id_mapel = tb_guru_mapel.id_mapel and tb_guru_mapel.nip = $nip")->result();
 
 		$this->load->view('guru/data_siswa',$data);
 	} 
 
 	public function data()
-	{
-		   $rombel = $this->input->post('rombel');
-		   $jenis = $this->input->post('jenis');
-		   $kategori = $this->input->post('kategori');
-		   $mapel = $this->input->post('mapel');
+	{		
+		$rules = [
+			[
+				'field' => 'rombel',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'jenis',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'kategori',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'mapel',
+				'rules' => 'required'
+			]
+		];
 
+		$rombel = $this->input->post('rombel');
+		$jenis = $this->input->post('jenis');
+		$kategori = $this->input->post('kategori');
+		$mapel = $this->input->post('mapel');
 
-
-		$data['siswa'] = $this->db->query("SELECT * FROM tb_nilai,tb_siswa WHERE tb_nilai.nis = tb_siswa.nis and id_rombel=$rombel and id_jenis=$jenis and id_kategori=$kategori and id_mapel = $mapel ")->result();
 		$data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
 	    $data['jenis'] = $this->M_Nilai->get_data('tb_jenis')->result();
     	$data['kategori'] = $this->M_Nilai->get_data('tb_kategori')->result();
-		$data['mapel'] = $this->M_Nilai->get_data('tb_mapel')->result();
+		$nip = $this->session->userdata('nip');
+    $data['mapel'] = $this->db->query("SELECT * FROM tb_guru_mapel,tb_mapel 
+					WHERE tb_guru_mapel.id_mapel = tb_mapel.id_mapel and tb_guru_mapel.nip = $nip")->result();
+
+		$this->form_validation->set_rules($rules);
+		if($this->form_validation->run() == false){
+			return $this->load->view('guru/data_siswa', $data);
+		}
+		
+		
+		$data['siswa'] = $this->db->query("SELECT * FROM tb_nilai,tb_siswa WHERE tb_nilai.nis = tb_siswa.nis and id_rombel=$rombel and id_jenis=$jenis and id_kategori=$kategori and id_mapel = $mapel ")->result();
+		
+		
+
+		
 
 		$this->load->view('guru/data_siswa_lengkap', $data);
 	}

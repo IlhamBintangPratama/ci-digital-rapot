@@ -56,39 +56,46 @@
                                         <div class="form-group col-md-3">
                                             <label for="">Rombel</label>
                                             <select class="form-control" name="rombel">
+                                                <option value="" disabled selected>-pilih-</option>
                                                 <?php foreach($rombel as $r){ ?>
                                                 <option value="<?php echo $r->id_rombel; ?>"><?php echo $r->rombel; ?>
                                                 </option>
                                                 <?php } ?>
                                             </select>
+                                            <?= form_error('rombel') ?>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="">Jenis Ujian</label>
                                             <select class="form-control" name="jenis">
+                                                <option value="" disabled selected>-pilih-</option>
                                                 <?php foreach($jenis as $j){ ?>
                                                 <option value="<?php echo $j->id_jenis; ?>">
                                                     <?php echo $j->nama_ujian; ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <?= form_error('jenis') ?>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="">Kategori</label>
                                             <select class="form-control" name="kategori">
+                                                <option value="" disabled selected>-pilih-</option>
                                                 <?php  foreach ($kategori as $k) { ?>
                                                 <option value="<?php echo $k->id_kategori ?>">
                                                     <?php echo $k->nama_kategori ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <?= form_error('kategori') ?>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="">Mapel</label>
                                             <select class="form-control" name="mapel">
+                                                <option value="" disabled selected>-pilih-</option>
                                                 <?php  foreach ($mapel as $m) { ?>
                                                 <option value="<?php echo $m->id_mapel ?>"><?php echo $m->mapel ?>
                                                 </option>
                                                 <?php } ?>
                                             </select>
-
+                                            <?= form_error('mapel') ?>
                                             <button type="submit" class="btn btn-primary mt-4"
                                                 style="height: 40px; width: 5rem">OK</button>
 

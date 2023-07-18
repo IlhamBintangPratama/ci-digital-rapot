@@ -45,20 +45,24 @@
                                             <input type="text" class="form-control" value="<?php echo $queryPsDetail->id_ps; ?>" name="id_ps" hidden> 
                                         </div>
                                         <div class="form-group">
-                                            <label>Rayon</label>
-                                            <select class="form-control" name="rayon">
-                                            <?php foreach($rayon as $r){ ?>
-                                              <option  value="<?php echo $r->id_rayon; ?>" <?=$r->id_rayon == $queryPsDetail->id_rayon ? "selected" : null ?>><?php echo $r->rayon; ?></option>
+                                            <label>Rombel</label>
+                                            <select class="form-control" name="rombel">
+                                              <option value="" disabled selected>-pilih-</option>
+                                            <?php foreach($rombel as $r){ ?>
+                                              <option  value="<?php echo $r->id_rombel; ?>" <?=$r->id_rombel == $queryPsDetail->id_rombel ? "selected" : null ?>><?php echo $r->rombel; ?></option>
                                             <?php } ?>
                                             </select>
+                                            <?= form_error('rombel')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" value="<?php echo $queryPsDetail->nama_ps; ?>" name="nama"> 
+                                            <input type="text" class="form-control" value="<?php echo $queryPsDetail->nama_ps; ?>" required name="nama"> 
+                                            <?= form_error('nama')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input type="text" class="form-control" value="<?php echo $queryPsDetail->username; ?>" name="username"> 
+                                            <input type="text" class="form-control" value="<?php echo $queryPsDetail->username; ?>" required name="username"> 
+                                            <?= form_error('username')?>
                                         </div>               
                                           <div class="row">
                                           <div class="col-md-10">

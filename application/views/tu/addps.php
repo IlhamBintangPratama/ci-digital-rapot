@@ -42,24 +42,29 @@
 
                                       <form method="post" action="<?php echo base_url('Tu/fungsiaddps')?>">
                                         <div class="form-group">
-                                            <label>Rayon</label>
-                                            <select class="form-control" name="rayon">
-                                            <?php foreach($rayon as $r){ ?>
-                                              <option  value="<?php echo $r->id_rayon; ?>"><?php echo $r->rayon; ?></option>
+                                            <label>Rombel</label>
+                                            <select class="form-control" name="rombel">
+                                              <option value="" disabled selected>-pilih-</option>
+                                            <?php foreach($rombel as $r){ ?>
+                                              <option  value="<?php echo $r->id_rombel; ?>"><?php echo $r->rombel; ?></option>
                                             <?php } ?>
                                             </select>
+                                            <?= form_error('rombel')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
                                             <input type="text" class="form-control" name="nama"> 
+                                            <?= form_error('nama')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>
                                             <input type="text" class="form-control" name="username"> 
+                                            <?= form_error('username')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" name="password"> 
+                                            <input type="password" class="form-control" name="password" minlength="8"> 
+                                            <?= form_error('password')?>
                                         </div>                
                                           <div class="row">
                                           <div class="col-md-10">

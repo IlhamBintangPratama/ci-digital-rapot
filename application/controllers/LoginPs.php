@@ -28,7 +28,7 @@ class LoginPs extends CI_Controller {
 				$session = array(
 					'authenticated'=>true, // Buat session authenticated dengan value true
 					'username'=>$user->username,  // Buat session username
-					'id_rayon'=>$user->id_rayon, // Buat session authenticated
+					'id_rombel'=>$user->id_rombel, // Buat session authenticated
 					'nama_ps'=>$user->nama_ps // Buat session authenticated
 
 				);

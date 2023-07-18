@@ -52,6 +52,7 @@
                                         <div class="form-group col-md-3">
                                             <label for="">Pilih Semester</label>
                                             <select class="form-control" name="semester">
+                                                <option value="" disabled selected>-pilih-</option>
                                                 <?php foreach($semester as $s){ ?>
                                                 <option <?php if($_POST['semester'] == $s->id_semester){ echo 'selected="selected"'; } ?> value="<?php echo $s->id_semester; ?>">
                                                     <?php echo $s->semester; ?></option>
@@ -60,8 +61,8 @@
                                         </div>
 
                                         <div class="form-group col-md-3">
-                                            <input type="hidden" name="rayon"
-                                                value="<?php echo $this->session->userdata('id_rayon') ?>">
+                                            <input type="hidden" name="rombel"
+                                                value="<?php echo $this->session->userdata('id_rombel') ?>">
 
                                             <button type="submit" class="btn btn-primary mt-4"
                                                 style="height: 40px; width: 5rem">OK</button>

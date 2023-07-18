@@ -3,8 +3,8 @@
                 <div class="row">
                     <!-- Footer Location-->
                     <div class="col-lg-6 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">SMK WIKRAMA BOGOR</h4>
-                        <p class="lead mb-0">Jl. Raya Wangun Kelurahan Sindangsari<br />Bogor, Jawa Barat</p>
+                        <h4 class="text-uppercase mb-4">Yayasan Nurjalin Cilacap</h4>
+                        <p class="lead mb-0">Jl. Jambu Sari No 99 Jeruklegi-Cilacap<br />Cilacap, Jawa Tengah</p>
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-6 mb-5 mb-lg-0">

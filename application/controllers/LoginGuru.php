@@ -29,7 +29,8 @@ class LoginGuru extends CI_Controller {
 					'authenticated'=>true, // Buat session authenticated dengan value true
 					'username'=>$user->username,  // Buat session username
 					'nama_guru'=>$user->nama_guru,
-					'id_mapel' =>$user->id_mapel // Buat session authenticated
+					'id_mapel' =>$user->id_mapel,
+					'nip' =>$user->nip // Buat session authenticated
 				);
 
 				$this->session->set_userdata($session); // Buat session sesuai $session

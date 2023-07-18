@@ -48,27 +48,24 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->nama; ?>" name="nama"> 
+                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->nama; ?>" required name="nama"> 
+                                            <?= form_error('nama')?>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Rayon</label>
-                                            <select class="form-control" name="rayon">
-                                            <?php foreach($rayon as $r){ ?>
-                                              <option  value="<?php echo $r->id_rayon; ?>" <?=$r->id_rayon == $querySiswaDetail->id_rayon ? "selected" : null ?>><?php echo $r->rayon; ?></option>
-                                            <?php } ?>
-                                            </select>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label>Rombel</label>
                                             <select class="form-control" name="rombel">
+                                              <option value="" disabled selected>-pilih-</option>
                                             <?php foreach($rombel as $rm){ ?>
                                               <option  value="<?php echo $rm->id_rombel; ?>" <?=$rm->id_rombel == $querySiswaDetail->id_rombel ? "selected" : null ?>><?php echo $rm->rombel; ?></option>
                                             <?php } ?>
                                             </select> 
+                                            <?= form_error('rombel')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->username; ?>" name="username"> 
+                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->username; ?>" required name="username"> 
+                                            <?= form_error('username')?>
                                         </div>              
                                           <div class="row">
                                           <div class="col-md-10">

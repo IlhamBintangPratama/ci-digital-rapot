@@ -9,6 +9,7 @@ class Kepsek extends CI_Controller {
 
     $this->load->model('M_Nilai');
     $this->load->model('SaveModel');
+    $this->load->library('form_validation');
 
 
    
@@ -17,7 +18,7 @@ class Kepsek extends CI_Controller {
   public function index()
   {
     $data['content'] = $this->db->get('tb_nilai');
-    $data['rayon'] = $this->M_Nilai->get_data('tb_rayon')->result();
+    $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
 
 
@@ -27,8 +28,8 @@ class Kepsek extends CI_Controller {
 
   public function cetak()
   {
-  	$data['content'] = $this->db->get('tb_rayon');
-    $data['rayon'] = $this->M_Nilai->get_data('tb_rayon')->result();
+  	$data['content'] = $this->db->get('tb_rombel');
+    $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
 
 
@@ -39,13 +40,28 @@ class Kepsek extends CI_Controller {
  
   public function datasiswa()
   {
-    $data['content'] = $this->db->get('tb_rayon');
-    $data['rayon'] = $this->M_Nilai->get_data('tb_rayon')->result();
+    $rules = [
+      [
+        'field' => 'rombel',
+        'rules' => 'required'
+      ],
+      [
+        'field' => 'semester',
+        'rules' => 'required'
+      ]
+    ];
+    $data['content'] = $this->db->get('tb_rombel');
+    $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
 
-    $rayon = $this->input->post('rayon');
+    $rombel = $this->input->post('rombel');
     $semester = $this->input->post('semester');
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_rayon,tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_siswa.id_rayon = tb_rayon.id_rayon and tb_rayon.id_rayon = $rayon  ")->result();
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE)
+    {
+      return $this->load->view('halutamakepsek',$data);
+    }
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_rombel.id_rombel = $rombel  ")->result();
 
     $this->load->view('kepsek/datasiswa', $data);
 
