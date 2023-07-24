@@ -62,7 +62,10 @@
                                                 <td><?php echo $key->nama_guru ?></td>
                                                 <td><?php echo $key->mapel ?></td>
                                                 <td><?php echo $key->username ?></td>
-                                                <td class="text-center"><a href="<?php echo base_url('Tu/editguru')?>/<?php echo $key->id_mapel?>">Change Data</a></td>
+                                                <td class="text-center">
+                                                    <a href="<?php echo base_url('Tu/editguru')?>/<?php echo $key->id_mapel?>" style="margin-right: 30px;">Change Data</a>
+                                                    <a href="<?php echo base_url('Tu/hapusguru')?>/<?php echo $key->id_mapel?>">Hapus Data</a>
+                                                </td>
                                             </tr>
                                             
                                                 <?php 

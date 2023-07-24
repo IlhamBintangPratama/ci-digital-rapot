@@ -43,7 +43,7 @@
                                       <form method="post" action="<?php echo base_url('Tu/fungsieditsiswa')?>">
                                         <div class="form-group">
                                             <label>Nis</label>
-                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->nis; ?>" disabled name="nis"> 
+                                            <input type="text" class="form-control" maxlength="8" minlength="8" value="<?php echo $querySiswaDetail->nis; ?>" disabled name="nis"> 
                                             <input type="text" class="form-control" value="<?php echo $querySiswaDetail->nis; ?>" hidden name="nis"> 
                                         </div>
                                         <div class="form-group">

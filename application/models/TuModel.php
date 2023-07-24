@@ -79,7 +79,7 @@ class TuModel extends CI_Model {
         // $this->db->where('nip', $nip);
         // var_dump($id_mapel);
         // die;
-        $query = $this->db->query("SELECT * FROM tb_guru_mapel,tb_guru,tb_mapel WHERE tb_guru_mapel.nip = tb_guru.nip AND tb_mapel.id_mapel = $id_mapel");
+        $query = $this->db->query("SELECT * FROM tb_guru_mapel,tb_guru,tb_mapel WHERE tb_mapel.id_mapel = $id_mapel and tb_guru_mapel.nip = tb_guru.nip and tb_guru_mapel.id_mapel = $id_mapel");
         return $query->row();
     }
     function updateDataGuru($nip, $data){
@@ -103,6 +103,16 @@ class TuModel extends CI_Model {
 
         return $this->db->delete('tb_ortu', array('nis' => $nis));
 
+    }
+    public function delete_guru($id_mapel)
+
+    {
+        // $query = $this->db->query("SELECT * FROM tb_guru_mapel WHERE id_mapel = $id_mapel")->row();
+        
+        $data['guru_mapel'] = $this->db->delete('tb_guru_mapel', array('id_mapel' => $id_mapel));
+        // $data['guru'] = $this->db->delete('tb_guru', array('nip' => $query->nip));
+
+        return $data;
     }
     public function delete_siswa($nis)
 

@@ -48,7 +48,7 @@
                                 <form method="post" action="<?php echo base_url('Tu/fungsiaddguru')?>">
                                     <div class="form-group">
                                         <label>NIP</label>
-                                        <input type="number" class="form-control" name="nip" maxlength="18" minlength="18" required>
+                                        <input type="number" class="form-control" name="nip" maxlength="8" minlength="8" required>
                                         <?= form_error('nip')?>
                                     </div>
                                     <div class="form-group">

@@ -777,6 +777,13 @@ public function cetakrapot()
 
     $this->load->view('tu/editguru', $data);
   }
+  public function hapusguru($id_mapel)
+  {   
+      
+      $data = $this->TuModel->delete_guru($id_mapel);
+      $this->session->set_flashdata('hapus', 'Data berhasil Dihapus');
+      redirect('Tu/guru');
+  }
 
   public function fungsieditguru(){
     $nip = $this->input->post('nip');

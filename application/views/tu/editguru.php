@@ -42,7 +42,7 @@
 
                                       <form method="post" action="<?php echo base_url('Tu/fungsieditguru')?>">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" value="<?php echo $dtguru->nip; ?>" name="nip" hidden> 
+                                            <input type="text" class="form-control" value="<?php echo $dtguru->nip; ?>" name="nip" maxlength="8" minlength="8" hidden> 
                                             <input type="text" class="form-control" value="<?php echo $dtguru->id_mapel; ?>" name="id" hidden> 
                                         </div>
                                         <div class="form-group">

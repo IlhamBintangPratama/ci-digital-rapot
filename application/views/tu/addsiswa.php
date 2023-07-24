@@ -43,7 +43,7 @@
                                       <form method="post" action="<?php echo base_url('Tu/fungsiadd')?>">
                                         <div class="form-group">
                                             <label>Nis</label>
-                                            <input type="text" class="form-control" name="nis" onkeypress="return hanyaAngka(event)" minlength="9" maxlength="9" required> 
+                                            <input type="text" class="form-control" name="nis" onkeypress="return hanyaAngka(event)" minlength="8" maxlength="8" required> 
                                             <?= form_error('nis')?>
                                         </div>
                                         <div class="form-group">
