@@ -38,24 +38,24 @@
 
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Edit Data Ortu</h5>
+                                    <div class="card-body"><h5 class="card-title">Edit Mapel yang Di Ampu</h5>
 
-                                      <form method="post" action="<?php echo base_url('Tu/fungsieditortu')?>">
+                                      <form method="post" action="<?php echo base_url('Tu/fungsieditgurumapel')?>">
                                         <div class="form-group">
-                                            <label>NIS</label>
-                                            <input type="text" class="form-control" value="<?php echo $dtortu->nis; ?>" disabled name="nis"> 
-                                            <input type="text" class="form-control" value="<?php echo $dtortu->nis; ?>" hidden name="nis"> 
+                                            <input type="text" class="form-control" value="<?php echo $dtgurumapel->nip; ?>" name="nip" maxlength="8" minlength="8" hidden> 
+                                            <input type="text" class="form-control" value="<?php echo $dtgurumapel->id_mapel; ?>" name="id" hidden> 
                                         </div>
                                         <div class="form-group">
-                                            <label>Nama</label>
-                                            <input type="text" class="form-control" value="<?php echo $dtortu->nama; ?>" name="nama"> 
-                                            <?= form_error('nama') ?>
+                                            <label>Mapel</label>
+                                            <select class="form-control" name="id_mapel">
+                                              <option value="" disabled selected>-pilih-</option>
+                                            <?php foreach($mapel as $r){ ?>
+                                              <option  value="<?php echo $r->id_mapel; ?>" <?=$r->id_mapel == $dtgurumapel->id_mapel ? "selected" : null ?>><?php echo $r->mapel; ?></option>
+                                            <?php } ?>
+                                            </select>
+                                            <?= form_error('id_mapel[]')?>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" class="form-control" value="<?php echo $dtortu->username; ?>" name="username">
-                                            <?= form_error('username') ?>
-                                        </div>              
+                                                    
                                           <div class="row">
                                           <div class="col-md-10">
                                           </div>
@@ -71,7 +71,7 @@
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
                 <script>
                     document.getElementById('back').onclick = function(){
-                        location.href = "<?php echo base_url('Tu/ortu')?>";
+                        location.href = "<?php echo base_url('Tu/gurumapel')?>/<?php echo $dtgurumapel->nip?>";
                     }
                 </script>
         </div>

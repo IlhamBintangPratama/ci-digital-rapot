@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Mapel</label>
-                                        <input type="text" class="form-control" name="mapel" required>
+                                        <input type="text" class="form-control" name="mapel">
                                         <?= form_error('mapel')?>
                                     </div>
                                     

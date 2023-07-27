@@ -75,12 +75,18 @@ class TuModel extends CI_Model {
         $mapel = $this->db->insert('tb_mapel', $data);
         return $this->db->insert_id();
     }
-    function getDataGuruDetail($id_mapel){
+    function getDataGuruMapelDetail($id_mapel){
+        $query = $this->db->query("SELECT * FROM tb_guru_mapel,tb_mapel WHERE tb_mapel.id_mapel = $id_mapel and tb_guru_mapel.id_mapel = $id_mapel");
+        return $query->row();
+    }
+    function getDataGuruDetail($nip){
         // $this->db->where('nip', $nip);
         // var_dump($id_mapel);
         // die;
-        $query = $this->db->query("SELECT * FROM tb_guru_mapel,tb_guru,tb_mapel WHERE tb_mapel.id_mapel = $id_mapel and tb_guru_mapel.nip = tb_guru.nip and tb_guru_mapel.id_mapel = $id_mapel");
+        $this->db->where('nip', $nip);
+        $query = $this->db->get('tb_guru');
         return $query->row();
+        
     }
     function updateDataGuru($nip, $data){
         $this->db->where('nip', $nip);
@@ -104,7 +110,17 @@ class TuModel extends CI_Model {
         return $this->db->delete('tb_ortu', array('nis' => $nis));
 
     }
-    public function delete_guru($id_mapel)
+    public function delete_guru($nip)
+
+    {
+        // $query = $this->db->query("SELECT * FROM tb_guru_mapel WHERE nip = $nip")->row();
+        
+        $data['guru_mapel'] = $this->db->delete('tb_guru', array('nip' => $nip));
+        // $data['guru'] = $this->db->delete('tb_guru', array('nip' => $query->nip));
+
+        return $data;
+    }
+    public function delete_gurumapel($id_mapel)
 
     {
         // $query = $this->db->query("SELECT * FROM tb_guru_mapel WHERE id_mapel = $id_mapel")->row();

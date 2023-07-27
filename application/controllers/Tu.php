@@ -99,19 +99,35 @@ public function fungsiadd()
   $rules = [
     [
       'field' => 'nis',
-      'rules' => 'required'
+      'rules' => 'required|is_unique[tb_siswa.nis]|min_length[8]|max_length[8]',
+      'errors' => [
+        'required' => '<span style="color:red">NIS wajib diisi</span>',
+        'is_unique' => '<span style="color:red">NIS sudah terdaftar</span>',
+        'min_length' => '<span style="color:red">Panjang karakter min/max 8</span>',
+        'max_length' => '<span style="color:red">Panjang karakter min/max 8</span>'
+      ]
     ],
     [
       'field' => 'nama',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Nama wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'rombel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Rombel wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'password',
-      'rules' => 'required'
+      'rules' => 'required|min_length[8]',
+      'errors' => [
+        'required' => '<span style="color:red">Password wajib diisi</span>',
+        'min_length' => '<span style="color:red">Password minimal 8 karakter</span>'
+      ]
     ],
   ];
   $nis = $this->input->post('nis');
@@ -254,19 +270,32 @@ public function fungsiaddps()
   $rules = [
     [
       'field' => 'rombel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Rombel wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'nama',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Nama wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'username',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Username wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'password',
-      'rules' => 'required'
+      'rules' => 'required|min_length[8]',
+      'errors' => [
+        'required' => '<span style="color:red">Password wajib diisi</span>',
+        'min_length' => '<span style="color:red">Password minimal 8 karakter</span>'
+      ]
     ]
     ];
   $nama = $this->input->post('nama');
@@ -275,7 +304,8 @@ public function fungsiaddps()
   $password = $this->input->post('password');
   $this->form_validation->set_rules($rules);
   if($this->form_validation->run()==FALSE){
-    return $this->load->view('tu/addps');
+    $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
+    return $this->load->view('tu/addps',$data);
   }
   $ArrInsert = array(
     'nama_ps' => $nama,
@@ -300,11 +330,15 @@ public function fungsieditmapel(){
   $rules = [
     [
       'field' => 'mapel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Mapel wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'jenpel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => '<span style="color:red;">Jenis pelajaran wajib diisi</span>'
     ]
   ];
   $id_mapel = $this->input->post('id_mapel');
@@ -313,7 +347,10 @@ public function fungsieditmapel(){
   // $username = $this->input->post('username');
   $this->form_validation->set_rules($rules);
   if($this->form_validation->run()==FALSE){
-    return $this->load->view('tu/editmapel');
+    $queryMapelDetail = $this->TuModel->getDataMapelDetail($id_mapel);
+    $DATA = array('queryMapelDetail' => $queryMapelDetail);
+    $DATA['jenpel'] = $this->M_Nilai->get_data('tb_jenpel')->result();
+    return $this->load->view('tu/editmapel', $DATA);
   }
   $ArrUpdate = array(
     'id_jenpel' => $jenpel,
@@ -340,11 +377,17 @@ public function fungsiaddmapel()
   $rules = [
     [
       'field' => 'mapel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Mapel wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'jenpel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Jenis pelajaran wajib diisi</span>'
+      ]
     ]
     ];
   $mapel = $this->input->post('mapel');
@@ -352,7 +395,8 @@ public function fungsiaddmapel()
   // $id = $this->TuModel-> add_post();
   $this->form_validation->set_rules($rules);
   if($this->form_validation->run()==FALSE){
-    return $this->load->view('tu/addmapel');
+    $data['jenpel'] = $this->M_Nilai->get_data('tb_jenpel')->result();
+    return $this->load->view('tu/addmapel', $data);
   }
   $ArrInsert = array(
     'mapel' => $mapel,
@@ -432,15 +476,24 @@ public function fungsieditps(){
   $rules = [
     [
       'field' => 'nama',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Nama wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'rombel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Rombel wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'username',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Username wajib diisi</span>'
+      ]
     ]
   ];
   $id_ps = $this->input->post('id_ps');
@@ -449,7 +502,10 @@ public function fungsieditps(){
   $username = $this->input->post('username');
   $this->form_validation->set_rules($rules);
   if($this->form_validation->run()==FALSE){
-    return $this->load->view('tu/editps');
+    $queryPsDetail = $this->TuModel->getDataPsDetail($id_ps);
+    $DATA = array('queryPsDetail' => $queryPsDetail);
+    $DATA['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
+    return $this->load->view('tu/editps', $DATA);
   }
   $ArrUpdate = array(
     'id_rombel' => $rombel,
@@ -468,19 +524,31 @@ public function fungsieditsiswa(){
   $rules = [
     [
       'field' => 'nis',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">NIS wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'rombel',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Rombel wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'nama',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Nama wajib diisi</span>'
+      ]
     ],
     [
       'field' => 'username',
-      'rules' => 'required'
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Username wajib diisi</span>'
+      ]
     ]
   ];
   $nis = $this->input->post('nis');
@@ -489,7 +557,11 @@ public function fungsieditsiswa(){
   $username = $this->input->post('username');
   $this->form_validation->set_rules($rules);
   if($this->form_validation->run()==FALSE){
-    return $this->load->view('tu/editsiswa');
+    $querySiswaDetail = $this->TuModel->getDataSiswaDetail($nis);
+    $DATA = array('querySiswaDetail' => $querySiswaDetail);
+    // $DATA['rayon'] = $this->M_Nilai->get_data('tb_rayon')->result();
+    $DATA['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
+    return $this->load->view('tu/editsiswa', $DATA);
   }
   $ArrUpdate = array(
     'id_rombel' => $rombel,
@@ -619,10 +691,33 @@ public function cetakrapot()
   }
 
   public function fungsieditortu(){
+    $rules = [
+      [
+        'field' => 'nama',
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<span style='color:red;'>Nama wajib diisi</span>"
+        ]
+      ],
+      [
+        'field' => 'username',
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<span style='color:red;'>Username wajib diisi</span>"
+        ]
+      ]
+      ];
+
     $nis = $this->input->post('nis');
     $nama = $this->input->post('nama');
     $username = $this->input->post('username');
   
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      $data['dtortu'] = $this->TuModel->getDataOrtuDetail($nis);
+      return $this->load->view('tu/editortu', $data);
+    }
+
     $ArrUpdate = array(
       'nis' => $nis,
       'nama' => $nama,
@@ -644,19 +739,32 @@ public function cetakrapot()
     $rules = [
       [
         'field' => 'nis',
-        'rules' => 'required'
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<span style='color:red;'>NIS wajib diisi</span>"
+        ]
       ],
       [
         'field' => 'nama',
-        'rules' => 'required'
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<span style='color:red;'>Nama wajib diisi</span>"
+        ]
       ],
       [
         'field' => 'username',
-        'rules' => 'required'
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<span style='color:red;'>Username wajib diisi</span>"
+        ]
       ],
       [
         'field' => 'password',
-        'rules' => 'required'
+        'rules' => 'required|min_length[8]',
+        'errors' => [
+          'required' => "<span style='color:red;'>Password wajib diisi</span>",
+          'min_length' => "<span style='color:red;'>Password minimal 8 karakter</span>"
+        ]
       ]
       ];
     $nis = $this->input->post('nis');
@@ -666,7 +774,8 @@ public function cetakrapot()
 
     $this->form_validation->set_rules($rules);
     if($this->form_validation->run()==FALSE){
-      return $this->load->view('tu/addortu');
+      $data['nis'] = $this->db->get('tb_siswa')->result();
+      return $this->load->view('tu/addortu', $data);
     }
     $ArrInsert = array(
       'nis' => $nis,
@@ -686,17 +795,113 @@ public function cetakrapot()
       redirect('Tu/ortu');
   }
 
+  public function gurumapel($nip)
+  {
+    $data['nipguru'] = $this->db->query("SELECT * FROM tb_guru WHERE nip = $nip")->row();
+    $data['dtgurumapel'] = $this->db->query("SELECT * FROM tb_mapel,tb_guru_mapel WHERE tb_guru_mapel.nip = $nip AND tb_guru_mapel.id_mapel = tb_mapel.id_mapel")->result();
+    // var_dump($data['dtgurumapel']);
+    // die;
+    $this->load->view('tu/gurumapel', $data);
+  }
+  public function addgurumapel($nip)
+  {
+    $data['nipguru'] = $this->db->query("SELECT * FROM tb_guru WHERE nip = $nip")->row();
+    $data['mapel'] = $this->db->get('tb_mapel')->result();
+    $this->load->view('tu/addgurumapel', $data);
+  }
+  public function fungsiaddgurumapel()
+  {
+    $rules = [
+      [
+        'field' => 'id_mapel[]',
+        'rules' => 'required|is_unique[tb_guru_mapel.id_mapel]',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Mapel wajib diisi</span>",
+          'is_unique' => "<spam style='color: red;'>Mapel yang dipilih telah diambil</span>"
+          ]
+      ]
+    ];
+    $nip = $this->input->post('nip');
+    $id_mapel = $this->input->post('id_mapel');
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      $data['nipguru'] = $this->db->query("SELECT * FROM tb_guru WHERE nip = $nip")->row();
+      $data['mapel'] = $this->db->get('tb_mapel')->result();
+      return $this->load->view('tu/addgurumapel', $data);
+    }
+    foreach($id_mapel as $data) {
+      $ArrInsertMapel[] = [
+        'nip' => $nip,
+        'id_mapel' => $data
+      ];
+      array_push($ArrInsertMapel);
+    }
+    $this->TuModel->insertDataGuruMapel($ArrInsertMapel);
+    $this->session->set_flashdata('simpan','Berhasil Ditambah');
+    // echo "gagal";
+    redirect("Tu/gurumapel/$nip");
+  }
+  public function editgurumapel($id_mapel)
+  {
+    $data['dtgurumapel'] = $this->TuModel->getDataGuruMapelDetail($id_mapel);
+    
+    $data['mapel'] = $this->db->get('tb_mapel')->result();
+    $this->load->view('tu/editgurumapel', $data);
+  }
+  public function fungsieditgurumapel()
+  {
+    $rules = [
+      [
+        'field' => 'id_mapel[]',
+        'rules' => 'required|is_unique[tb_guru_mapel.id_mapel]',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Mapel wajib diisi</span>",
+          'is_unique' => "<spam style='color: red;'>Mapel yang dipilih telah diambil</span>"
+          ]
+      ]
+    ];
+    $id_mapel = $this->input->post('id_mapel');
+    $id = $this->input->post('id');
+    $nip = $this->input->post('nip');
+    
+
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      
+      $data['dtgurumapel'] = $this->TuModel->getDataGuruMapelDetail($id);
+      $data['mapel'] = $this->db->get('tb_mapel')->result();
+      return $this->load->view('tu/editgurumapel', $data);
+    }
+    $ArrUpdate = array(
+      'nip' => $nip,
+      // 'id_mapel' => $id_mapel,
+      'id_mapel' => $id_mapel
+    );
+    $this->TuModel->updateDataGuruMapel($id, $ArrUpdate);
+    $this->session->set_flashdata('update','Berhasil Diubah');
+    // $nip = $this->input->post('nip');
+    
+    redirect("Tu/gurumapel/$nip");
+  }
+  public function hapusgurumapel($id_mapel)
+  {   
+      $nipguru = $this->db->query("SELECT * FROM tb_guru_mapel WHERE id_mapel = $id_mapel")->row();
+      $data = $this->TuModel->delete_gurumapel($id_mapel);
+      $this->session->set_flashdata('hapus', 'Data berhasil Dihapus');
+      redirect("Tu/gurumapel/$nipguru->nip");
+  }
+
   public function guru()
     {
-      $data['dtguru'] = $this->db->query("SELECT * FROM tb_guru,tb_mapel,tb_guru_mapel WHERE tb_guru_mapel.nip = tb_guru.nip AND tb_guru_mapel.id_mapel = tb_mapel.id_mapel")->result();
+      // $data['dtguru'] = $this->db->query("SELECT * FROM tb_guru,tb_mapel,tb_guru_mapel WHERE tb_guru_mapel.nip = tb_guru.nip AND tb_guru_mapel.id_mapel = tb_mapel.id_mapel")->result();
+      $data['dtguru'] = $this->db->query("SELECT * FROM tb_guru")->result();
 
       $this->load->view('tu/guru', $data);
     }
 
   public function addguru()
     {
-      $data['mapel'] = $this->db->get('tb_mapel')->result();
-      $this->load->view('tu/addguru', $data);
+      $this->load->view('tu/addguru');
     }
   
   // public function mapel_checkout()
@@ -718,29 +923,40 @@ public function cetakrapot()
     $rules = [
       [
         'field' => 'nip',
-        'rules' => 'trim|required|is_unique[tb_guru.nip]'
+        'rules' => 'trim|required|is_unique[tb_guru.nip]',
+        'errors' => [
+          'is_unique' => "<spam style='color: red;'>NIP sudah terdaftar</span>",
+          'required' => "<spam style='color: red;'>NIP wajib diisi</span>"
+          ]
       ],
-      // [
-      //   'field' => 'id_mapel',
-      //   'rules' => 'required'
-      // ],
       [
         'field' => 'username',
-        'rules' => 'required'
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Username wajib diisi</span>"
+          ]
       ],
       [
         'field' => 'password',
-        'rules' => 'required'
+        'rules' => 'required|min_length[8]',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Password wajib diisi</span>",
+          'min_length' => "<spam style='color: red;'>Password minimal 8 karakter</span>"
+          ]
       ],
       [
         'field' => 'nama_guru',
-        'rules' => 'required'
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Nama guru wajib diisi</span>"
+          ]
       ]
+      
       ];
 
     $ArrInsertMapel = [];
     $nip = $this->input->post('nip');
-    $id_mapel = $this->input->post('id_mapel');
+    
     $username = $this->input->post('username');
     $password = $this->input->post('password');
     $nama_guru = $this->input->post('nama_guru');
@@ -748,7 +964,8 @@ public function cetakrapot()
     // die;
     $this->form_validation->set_rules($rules);
     if($this->form_validation->run()==FALSE){
-      return $this->load->view('tu/addguru');
+      $data['mapel'] = $this->db->get('tb_mapel')->result();
+      return $this->load->view('tu/addguru', $data);
     }
     $ArrInsert = array(
       'nip' => $nip,
@@ -756,43 +973,60 @@ public function cetakrapot()
       'password' => md5($password),
       'nama_guru' => $nama_guru
     );
-    foreach($id_mapel as $data) {
-      $ArrInsertMapel[] = [
-        'nip' => $nip,
-        'id_mapel' => $data
-      ];
-      array_push($ArrInsertMapel);
-    }
+    
     $this->TuModel->insertDataGuru($ArrInsert);
-    $this->TuModel->insertDataGuruMapel($ArrInsertMapel);
+    
     $this->session->set_flashdata('simpan','Berhasil Ditambah');
     // echo "gagal";
     redirect('Tu/guru');
   }
-  public function editguru($id_mapel){
-    $data['dtguru'] = $this->TuModel->getDataGuruDetail($id_mapel);
+  public function editguru($nip){
+    $data['dtguru'] = $this->TuModel->getDataGuruDetail($nip);
     // var_dump($data['dtguru']);
     // die;
-    $data['mapel'] = $this->db->get('tb_mapel')->result();
+    
 
     $this->load->view('tu/editguru', $data);
   }
-  public function hapusguru($id_mapel)
+  public function hapusguru($nip)
   {   
       
-      $data = $this->TuModel->delete_guru($id_mapel);
+      $data = $this->TuModel->delete_guru($nip);
       $this->session->set_flashdata('hapus', 'Data berhasil Dihapus');
       redirect('Tu/guru');
   }
 
   public function fungsieditguru(){
+    $rules = [
+      [
+        'field' => 'username',
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Username wajib diisi</span>"
+          ]
+      ],
+      [
+        'field' => 'nama_guru',
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Nama guru wajib diisi</span>"
+          ]
+      ]
+      
+      ];
     $nip = $this->input->post('nip');
-    $id = $this->input->post('id');
-    $id_mapel = $this->input->post('id_mapel');
     $username = $this->input->post('username');
     // $password = $this->input->post('password');
     $nama_guru = $this->input->post('nama_guru');
+    
+    
 
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      
+      $data['dtguru'] = $this->TuModel->getDataGuruDetail($nip);
+      return $this->load->view('tu/editguru', $data);
+    }
     $ArrUpdate = array(
       'nip' => $nip,
       // 'id_mapel' => $id_mapel,
@@ -804,7 +1038,7 @@ public function cetakrapot()
       'id_mapel' => $id_mapel
     );
     $this->TuModel->updateDataGuru($nip, $ArrUpdate);
-    $this->TuModel->updateDataGuruMapel($id, $ArrUpdateGuru);
+    // $this->TuModel->updateDataGuruMapel($id, $ArrUpdateGuru);
     $this->session->set_flashdata('update','Berhasil Diubah');
     redirect('Tu/guru');
   }

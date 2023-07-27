@@ -43,12 +43,12 @@
                                       <form method="post" action="<?php echo base_url('Tu/fungsiadd')?>">
                                         <div class="form-group">
                                             <label>Nis</label>
-                                            <input type="text" class="form-control" name="nis" onkeypress="return hanyaAngka(event)" minlength="8" maxlength="8" required> 
+                                            <input type="text" class="form-control" name="nis" value="<?php echo set_value('nis') ?>" onkeypress="return hanyaAngka(event)"> 
                                             <?= form_error('nis')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" name="nama" required> 
+                                            <input type="text" class="form-control" value="<?php echo set_value('nama') ?>" name="nama"> 
                                             <?= form_error('nama')?>
                                         </div>
                                         
@@ -64,8 +64,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" name="password" minlength="8" required> 
-                                            <?= form_error('passwword')?>
+                                            <input type="password" class="form-control" value="<?php echo set_value('password') ?>" name="password"> 
+                                            <?= form_error('password')?>
                                         </div>                
                                           <div class="row">
                                           <div class="col-md-10">

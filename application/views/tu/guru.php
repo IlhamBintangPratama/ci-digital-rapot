@@ -45,7 +45,6 @@
                                                 <th>No</th>
                                                 <th>NIP</th>
                                                 <th>Nama Guru</th>
-                                                <th>Mapel</th>
                                                 <th>Username </th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -60,11 +59,11 @@
                                                 <td><?php echo $no++ ?></td>
                                                 <td><?php echo $key->nip ?></td>
                                                 <td><?php echo $key->nama_guru ?></td>
-                                                <td><?php echo $key->mapel ?></td>
                                                 <td><?php echo $key->username ?></td>
-                                                <td class="text-center">
-                                                    <a href="<?php echo base_url('Tu/editguru')?>/<?php echo $key->id_mapel?>" style="margin-right: 30px;">Change Data</a>
-                                                    <a href="<?php echo base_url('Tu/hapusguru')?>/<?php echo $key->id_mapel?>">Hapus Data</a>
+                                                <td>
+                                                    <a href="<?php echo base_url('Tu/gurumapel')?>/<?php echo $key->nip?>" style="margin-right: 30px;">Mapel Yang Diampu</a>
+                                                    <a href="<?php echo base_url('Tu/editguru')?>/<?php echo $key->nip?>" style="margin-right: 30px;">Ubah Data</a>
+                                                    <a href="<?php echo base_url('Tu/hapusguru')?>/<?php echo $key->nip?>">Hapus Data</a>
                                                 </td>
                                             </tr>
                                             

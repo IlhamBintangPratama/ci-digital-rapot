@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->nama; ?>" required name="nama"> 
+                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->nama; ?>" name="nama"> 
                                             <?= form_error('nama')?>
                                         </div>
                                         
@@ -64,13 +64,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->username; ?>" required name="username"> 
+                                            <input type="text" class="form-control" value="<?php echo $querySiswaDetail->username; ?>" name="username"> 
                                             <?= form_error('username')?>
                                         </div>              
                                           <div class="row">
                                           <div class="col-md-10">
                                           </div>
                                           <button type="submit" class="btn btn-primary mt-4" style="height: 40px; width: 11rem; margin-left: 4%;">Simpan</button>
+                                          <button type="button" class="btn btn-secondary mt-4" id="back" style="height: 40px; width: 11rem; margin-left: 4%;">Kembali</button>
                                           </div>
                                       </form>
                                     </div>
@@ -79,6 +80,11 @@
                         </div>  
                     </div>
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                <script>
+                    document.getElementById('back').onclick = function(){
+                        location.href = "<?php echo base_url('Tu/siswa')?>";
+                    }
+                </script>
         </div>
     </div>
 <script type="text/javascript" src="<?php echo base_url('assets/scripts/main.js') ?>"></script></body>

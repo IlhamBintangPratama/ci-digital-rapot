@@ -45,28 +45,37 @@
                             <div class="card-body">
                                 <h5 class="card-title">Input Data Guru</h5>
 
-                                <form method="post" action="<?php echo base_url('Tu/fungsiaddguru')?>">
+                                <form method="post" action="<?php echo base_url('Tu/fungsiaddgurumapel')?>">
                                     <div class="form-group">
-                                        <label>NIP</label>
-                                        <input type="number" class="form-control" value="<?php echo set_value('nip'); ?>" onkeypress="return hanyaAngka(event)" name="nip" minlength="8" maxlength="8">
+                                        <!-- <label>NIP</label> -->
+                                        <input type="number" class="form-control" value="<?php echo $nipguru->nip; ?>" hidden name="nip">
                                         <?= form_error('nip')?>
                                     </div>
-                                    
                                     <div class="form-group">
-                                        <label>Nama Guru</label>
-                                        <input type="text" class="form-control" value="<?php echo set_value('nama_guru'); ?>" name="nama_guru">
-                                        <?= form_error('nama_guru')?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control" value="<?php echo set_value('username'); ?>" name="username">
-                                        <?= form_error('username')?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" class="form-control" value="<?php echo set_value('password'); ?>" name="password"
-                                        >
-                                            <?= form_error('password')?>
+                                        <label for="id_mapel">Mapel</label>
+                                        <!-- <select name="id_mapel" id="id_mapel" class="form-control">
+                                            <option value="" disabled selected>-pilih-</option>
+                                            <?php foreach ($mapel as $data) : ?>
+                                            <option value="<?php echo $data->id_mapel; ?>"><?php echo $data->mapel; ?></option>
+                                            <?php endforeach ?>
+                                        </select> -->
+                                        <select class="form-control" multiple data-live-search="true" name="id_mapel[]" id="id_mapel">
+                                            
+                                            <!-- <option value="id_mapel">Pilih Mapel</option> -->
+                                                <?php 
+                                                if ($mapel) {
+                                                    // echo "<option value='' disabled selected>-pilih-</option>";
+                                                foreach ($mapel as $data) {
+                                                    
+                                                    echo "<option value='".$data->id_mapel."'>".$data->mapel."</option>";
+                                                    }
+                                                }
+                                                ?>
+                                        </select>
+                                        
+                                        <?= form_error('id_mapel[]');?>
+                                        
+                                        
                                     </div>
                                     <div class="row">
                                         <div class="col-md-10">

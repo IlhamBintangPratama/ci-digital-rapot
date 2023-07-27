@@ -61,7 +61,8 @@
                                                 <td><?php echo $key->nis ?></td>
                                                 <td><?php echo $key->nama ?></td>
                                                 <td><?php echo $key->rombel ?></td>
-                                                <td class="text-center"><a href="<?php echo base_url('Tu/editsiswa')?>/<?php echo $key->nis?>"style="margin-right: 30px;">Change Data</a>
+                                                <td>
+                                                    <a href="<?php echo base_url('Tu/editsiswa')?>/<?php echo $key->nis?>"style="margin-right: 30px;">Ubah Data</a>
                                                     <a href="<?php echo base_url('Tu/hapussiswa')?>/<?php echo $key->nis?>">Hapus Data</a>
                                             </tr>
                                             

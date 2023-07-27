@@ -56,18 +56,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Nama</label>
-                                        <input type="text" class="form-control" name="nama" required>
+                                        <input type="text" class="form-control" name="nama" value="<?php echo set_value('nama'); ?>">
                                         <?= form_error('nama')?>
                                     </div>
                                     <div class="form-group">
                                         <label>Username</label>
-                                        <input type="text" class="form-control" name="username" required>
+                                        <input type="text" class="form-control" name="username" value="<?php echo set_value('username'); ?>">
                                         <?= form_error('username')?>
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" name="password" minlength="8" minlength="8"
-                                            required>
+                                        <input type="password" class="form-control" name="password" value="<?php echo set_value('password'); ?>"
+                                            >
                                             <?= form_error('password')?>
                                     </div>
                                     <div class="row">

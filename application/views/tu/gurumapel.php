@@ -18,9 +18,9 @@
                     
                         <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Data Pembimbing Siswa</h5>
+                                    <div class="card-body"><h5 class="card-title">Data Mapel yang Di Ampu</h5>
 
-                                    <a href="<?= base_url('Tu/addps') ?>" class="btn btn-primary mt-2 mb-4">Tambah Baru</a>
+                                    <a href="<?= base_url('Tu/addgurumapel') ?>/<?php echo $nipguru->nip?>" class="btn btn-primary mt-2 mb-4">Tambah Baru</a>
                                     <?php if($hapus = $this->session->flashdata('hapus')): ?>
                                     <div id="notif" class="alert alert-success alert-block">
                                         <button type="button" class="close" data-dismiss="alert">x</button>
@@ -43,9 +43,7 @@
                                             <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Rombel</th>
-                                                <th>Nama</th>
-                                                <th>Username </th>
+                                                <th>Mapel</th>
                                                 <th>Aksi</th>
                                             </tr>
                                             </thead>
@@ -53,14 +51,15 @@
                                             <tbody>
                                                 <?php
                                                 $no = 1; 
-                                                foreach ($dtps as $key) {
+                                                foreach ($dtgurumapel as $key) {
                                                     ?>
                                             <tr>
                                                 <td><?php echo $no++ ?></td>
-                                                <td><?php echo $key->rombel ?></td>
-                                                <td><?php echo $key->nama_ps ?></td>
-                                                <td><?php echo $key->username ?></td>
-                                                <td><a href="<?php echo base_url('Tu/editps')?>/<?php echo $key->id_ps?>">Ubah Data</a></td>
+                                                <td><?php echo $key->mapel ?></td>
+                                                <td>
+                                                    <a href="<?php echo base_url('Tu/editgurumapel')?>/<?php echo $key->id_mapel?>" style="margin-right: 30px;">Ubah Data</a>
+                                                    <a href="<?php echo base_url('Tu/hapusgurumapel')?>/<?php echo $key->id_mapel?>">Hapus Data</a>
+                                                </td>
                                             </tr>
                                             
                                                 <?php 

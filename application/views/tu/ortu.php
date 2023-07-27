@@ -61,7 +61,7 @@
                                                 <td><?php echo $key->nama ?></td>
                                                 <td><?php echo $key->username ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url('Tu/editortu')?>/<?php echo $key->nis?>" style="margin-right: 30px;">Change Data</a>
+                                                    <a href="<?php echo base_url('Tu/editortu')?>/<?php echo $key->nis?>" style="margin-right: 30px;">Ubah Data</a>
                                                     <a href="<?php echo base_url('Tu/hapusortu')?>/<?php echo $key->nis?>">Hapus Data</a>
                                                 </td>
                                             </tr>

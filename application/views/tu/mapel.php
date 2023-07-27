@@ -59,7 +59,7 @@
                                                 <td><?php echo $key->mapel ?></td>
                                                 <td><?php echo $key->jenpel ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url('Tu/editmapel')?>/<?php echo $key->id_mapel?>" style="margin-right: 30px;">Change Data</a>
+                                                    <a href="<?php echo base_url('Tu/editmapel')?>/<?php echo $key->id_mapel?>" style="margin-right: 30px;">Ubah Data</a>
                                                     <a href="<?php echo base_url('Tu/hapusmapel')?>/<?php echo $key->id_mapel?>">Hapus Data</a>
                                                 </td>
                                                 
