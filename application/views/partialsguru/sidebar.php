@@ -48,6 +48,16 @@
                                     </a>
                                     
                                 </li> 
+
+                                <li>
+                                    <a href="<?= base_url('Ps/cetak') ?>">
+                                        <i class="metismenu-icon pe-7s-user"></i>
+                                        Cetak Nilai
+                                        
+                                    </a>
+                                    
+                                </li> 
+
                                  <li>
                                     <a href="<?= base_url('Ps/prestasi') ?>">
                                         <i class="metismenu-icon pe-7s-medal"></i>

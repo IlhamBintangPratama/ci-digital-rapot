@@ -18,35 +18,31 @@
                     
                         <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Data Siswa</h5>
+                                    <div class="card-body"><h5 class="card-title">Data Rombel</h5>
 
-                                    <a href="<?= base_url('Tu/addsiswa') ?>" class="btn btn-primary mt-2 mb-4">Tambah Baru</a>
-                                        
-                                        <?php if($hapus = $this->session->flashdata('hapus')): ?>
-                                        <div id="notif" class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">x</button>
-                                            <?= $hapus ?>
-                                        </div>
-                                        <?php endif ?>
-                                        <?php if($simpan = $this->session->flashdata('simpan')): ?>
-                                        <div id="notif" class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">x</button>
-                                            <?= $simpan ?>
-                                        </div>
-                                        <?php endif ?>
-                                        <?php if($update = $this->session->flashdata('update')): ?>
-                                        <div id="notif" class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">x</button>
-                                            <?= $update ?>
-                                        </div>
-                                        <?php endif ?>
+                                    <a href="<?= base_url('Tu/addrombel') ?>" class="btn btn-primary mt-2 mb-4">Tambah Baru</a>
+                                    <?php if($hapus = $this->session->flashdata('hapus')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $hapus ?>
+                                    </div>
+                                    <?php endif ?>
+                                    <?php if($simpan = $this->session->flashdata('simpan')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $simpan ?>
+                                    </div>
+                                    <?php endif ?>
+                                    <?php if($update = $this->session->flashdata('update')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $update ?>
+                                    </div>
+                                    <?php endif ?>
                                         <table class="mb-0 table table-striped">
                                             <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nis</th>
-                                                <th>Nama </th>
-                                                <th>No Hp</th>
                                                 <th>Rombel</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -55,18 +51,16 @@
                                             <tbody>
                                                 <?php
                                                 $no = 1; 
-                                                foreach ($dtsiswa as $key) {
+                                                foreach ($dtrombel as $key) {
                                                     ?>
                                             <tr>
                                                 <td><?php echo $no++ ?></td>
-                                                <td><?php echo $key->nis ?></td>
-                                                
-                                                <td><?php echo $key->nama ?></td>
-                                                <td><?php echo $key->no_hp ?></td>
                                                 <td><?php echo $key->rombel ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url('Tu/editsiswa')?>/<?php echo $key->nis?>"style="margin-right: 30px;">Ubah Data</a>
-                                                    <a href="<?php echo base_url('Tu/hapussiswa')?>/<?php echo $key->nis?>">Hapus Data</a>
+                                                    <a href="<?php echo base_url('Tu/editrombel')?>/<?php echo $key->id_rombel?>" style="margin-right: 30px;">Ubah Data</a>
+                                                    <a href="<?php echo base_url('Tu/hapusrombel')?>/<?php echo $key->id_rombel?>">Hapus Data</a>
+                                                </td>
+                                                
                                             </tr>
                                             
                                                 <?php 

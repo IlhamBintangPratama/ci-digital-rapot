@@ -38,50 +38,16 @@
 
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Input Data Siswa</h5>
+                                    <div class="card-body"><h5 class="card-title">Input Data Rombel</h5>
 
-                                      <form method="post" action="<?php echo base_url('Tu/fungsiadd')?>">
-                                        <div class="form-group">
-                                            <label>Nis</label>
-                                            <input type="text" class="form-control" name="nis" value="<?php echo set_value('nis') ?>" onkeypress="return hanyaAngka(event)"> 
-                                            <?= form_error('nis')?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Nama</label>
-                                            <input type="text" class="form-control" value="<?php echo set_value('nama') ?>" name="nama"> 
-                                            <?= form_error('nama')?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Jenis Kelamin</label>
-                                            <select class="form-control" name="jk">
-                                              <option value="" disabled selected>-pilih-</option>
-                                              <option value="P">Perempuan</option>
-                                              <option value="L">Laki-Laki</option>
-                                            </select>
-                                            <!-- <input type="text" class="form-control" value="<?php echo set_value('jk') ?>" name="jk">  -->
-                                            <?= form_error('jk')?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>No Hp</label>
-                                            <input type="text" class="form-control" value="<?php echo set_value('no_hp') ?>" name="no_hp"> 
-                                            <?= form_error('no_hp')?>
-                                        </div>
+                                      <form method="post" action="<?php echo base_url('Tu/fungsiaddrombel')?>">
                                         
                                         <div class="form-group">
                                             <label>Rombel</label>
-                                            <select class="form-control" name="rombel">
-                                              <option value="" disabled selected>-pilih-</option>
-                                            <?php foreach($rombel as $rm){ ?>
-                                              <option  value="<?php echo $rm->id_rombel; ?>"><?php echo $rm->rombel; ?></option>
-                                            <?php } ?>
-                                            </select> 
+                                            <input type="text" class="form-control" value="<?php echo set_value('rombel') ?>" name="rombel"> 
                                             <?= form_error('rombel')?>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" value="<?php echo set_value('password') ?>" name="password"> 
-                                            <?= form_error('password')?>
-                                        </div>                
+                                                      
                                           <div class="row">
                                           <div class="col-md-10">
                                           </div>

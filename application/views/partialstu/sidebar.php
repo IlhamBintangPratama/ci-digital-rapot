@@ -44,12 +44,12 @@
                                         Data Mapel
                                     </a>
                                 </li> 
-                                <!-- <li>
-                                    <a href="<?= base_url('Tu/ortu') ?>">
+                                <li>
+                                    <a href="<?= base_url('Tu/rombel') ?>">
                                         <i class="metismenu-icon pe-7s-users"></i>
-                                        Data Mapel
+                                        Data Rombel
                                     </a>
-                                </li> -->
+                                </li>
                                 <li>
                                     <a href="<?= base_url('Tu/guru') ?>">
                                         <i class="metismenu-icon pe-7s-users"></i>

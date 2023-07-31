@@ -78,6 +78,106 @@ public function siswa()
   $this->load->view('tu/siswa', $data);
 }
 
+public function rombel()
+{
+  $data['dtrombel'] = $this->db->query("SELECT * FROM tb_rombel")->result();
+
+  $this->load->view('tu/rombel', $data);
+}
+public function addrombel()
+{
+  
+  $this->load->view('tu/addrombel');
+}
+
+public function fungsiaddrombel()
+{
+  $rules = [
+    [
+      'field' => 'rombel',
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Rombel wajib diisi</span>'
+      ]
+    ],
+  ];
+  
+  $rombel = $this->input->post('rombel');
+  
+  $this->form_validation->set_rules($rules);
+  if($this->form_validation->run()==FALSE){
+    return $this->load->view('tu/addrombel');
+  }
+  $ArrInsert = array(
+    
+    'rombel' => $rombel,
+    
+  );
+  
+  // var_dump(json_encode($ArrInsertNilai));
+  // die();
+
+
+  // echo "<pre>";
+  // print_r($ArrInsert);
+  // echo "</pre>";
+  $this->TuModel->insertDataRombel($ArrInsert);
+  
+
+  $this->session->set_flashdata('simpan','Berhasil Ditambah');
+  redirect('Tu/rombel');
+}
+public function editrombel($id_rombel){
+  $queryRombelDetail = $this->TuModel->getDataRombelDetail($id_rombel);
+  $DATA = array('queryRombelDetail' => $queryRombelDetail);
+  // $DATA['rayon'] = $this->M_Nilai->get_data('tb_rayon')->result();
+  // echo "<pre>";
+  // print_r($queryPsDetail);
+  // echo "</pre>";
+  $this->load->view('tu/editrombel', $DATA);
+}
+
+public function fungsieditrombel(){
+  $rules = [
+    [
+      'field' => 'rombel',
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red;">Rombel wajib diisi</span>'
+      ]
+    ]
+  ];
+  $id_rombel = $this->input->post('id_rombel');
+  $rombel = $this->input->post('rombel');
+  
+  $this->form_validation->set_rules($rules);
+  if($this->form_validation->run()==FALSE){
+    $queryRombelDetail = $this->TuModel->getDataRombelDetail($id_rombel);
+    $DATA = array('queryRombelDetail' => $queryRombelDetail);
+    // $DATA['rayon'] = $this->M_Nilai->get_data('tb_rayon')->result();
+    return $this->load->view('tu/editrombel', $DATA);
+  }
+  $ArrUpdate = array(
+    'id_rombel' => $id_rombel,
+    'rombel' => $rombel
+    
+  );
+  // echo "<pre>";
+  // print_r($ArrUpdate);
+  // echo "</pre>";
+  $this->TuModel->updateDataRombel($id_rombel, $ArrUpdate);
+  $this->session->set_flashdata('update','Berhasil Diubah');
+  redirect('Tu/rombel');
+}
+
+public function hapusrombel($id_rombel)
+  {   
+      
+      $data = $this->TuModel->delete_rombel($id_rombel);
+      $this->session->set_flashdata('hapus', 'Data berhasil Dihapus');
+      redirect('Tu/rombel');
+  }
+
 public function mapel()
 {
   $data['dtmapel'] = $this->db->query("SELECT * FROM tb_mapel,tb_jenpel where tb_mapel.id_jenpel = tb_jenpel.id_jenpel")->result();
@@ -132,6 +232,8 @@ public function fungsiadd()
   ];
   $nis = $this->input->post('nis');
   $nama = $this->input->post('nama');
+  $jk = $this->input->post('jk');
+  $no_hp = $this->input->post('no_hp');
   $rombel = $this->input->post('rombel');
   $password = $this->input->post('password');
   $this->form_validation->set_rules($rules);
@@ -141,6 +243,8 @@ public function fungsiadd()
   $ArrInsert = array(
     'nis' => $nis,
     'nama' => $nama,
+    'jk' => $jk,
+    'no_hp' => $no_hp,
     'id_rombel' => $rombel,
     'username' => $nis,
     'password' => md5($password)

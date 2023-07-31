@@ -11,6 +11,9 @@ class TuModel extends CI_Model {
     function insertDataSiswa($data){
         $this->db->insert('tb_siswa', $data);
     }
+    function insertDataRombel($data){
+        $this->db->insert('tb_rombel', $data);
+    }
     function insertDataPrestasi($data){
         $this->db->insert('tb_prestasi', $data);
     }
@@ -50,6 +53,11 @@ class TuModel extends CI_Model {
         $query = $this->db->get('tb_siswa');
         return $query->row();
     }
+    function getDataRombelDetail($id_rombel){
+        $this->db->where('id_rombel', $id_rombel);
+        $query = $this->db->get('tb_rombel');
+        return $query->row();
+    }
     function getDataMapelDetail($id_mapel){
         $this->db->where('id_mapel', $id_mapel);
         $query = $this->db->get('tb_mapel');
@@ -58,6 +66,10 @@ class TuModel extends CI_Model {
     function updateDataSiswa($nis, $data){
         $this->db->where('nis', $nis);
         $this->db->update('tb_siswa', $data);
+    }
+    function updateDataRombel($id_rombel, $data){
+        $this->db->where('id_rombel', $id_rombel);
+        $this->db->update('tb_rombel', $data);
     }
     function getDataOrtuDetail($nis){
         $this->db->where('nis', $nis);
@@ -137,6 +149,15 @@ class TuModel extends CI_Model {
         return $this->db->delete('tb_siswa', array('nis' => $nis));
 
     }
+
+    public function delete_rombel($id_rombel)
+
+    {
+
+        return $this->db->delete('tb_rombel', array('id_rombel' => $id_rombel));
+
+    }
+
     public function delete_nilai($nis)
 
     {

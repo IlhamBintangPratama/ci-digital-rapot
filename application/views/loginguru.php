@@ -41,7 +41,7 @@
 				<form class="login100-form validate-form" action="<?php echo base_url('LoginGuru/login') ?>" method="POST">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Masukkan Username">
+						<input class="input100" type="text" name="nip" placeholder="Masukkan Username">
 						<span class="focus-input100"></span>
 					</div>
 
