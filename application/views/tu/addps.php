@@ -53,8 +53,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" name="nama"> 
-                                            <?= form_error('nama')?>
+                                            <select class="form-control" name="nama">
+                                              <option value="" disabled selected>-pilih-</option>
+                                            <?php foreach($nama_guru as $r){ ?>
+                                              <option  value="<?php echo $r->nama_guru; ?>"><?php echo $r->nama_guru; ?></option>
+                                            <?php } ?>
+                                            </select>
+                                            <?= form_error('nama_guru')?>
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>

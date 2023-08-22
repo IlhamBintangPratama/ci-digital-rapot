@@ -15,10 +15,10 @@ class LoginGuru extends CI_Controller {
 	}
 
 	public function login(){
-		$nip = $this->input->post('nip'); // Ambil isi dari inputan username pada form login
+		$username = $this->input->post('username'); // Ambil isi dari inputan username pada form login
 		$password = md5($this->input->post('password')); // Ambil isi dari inputan password pada form login dan encrypt dengan md5
 
-		$user = $this->GuruModel->get($nip); // Panggil fungsi get yang ada di UserModel.php
+		$user = $this->GuruModel->get($username); // Panggil fungsi get yang ada di UserModel.php
 
 		if(empty($user)){ // Jika hasilnya kosong / user tidak ditemukan
 			$this->session->set_flashdata('message', 'Username tidak ditemukan'); // Buat session flashdata

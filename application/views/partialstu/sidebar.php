@@ -39,6 +39,12 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="<?= base_url('Tu/arsiprapot') ?>">
+                                        <i class="metismenu-icon pe-7s-users"></i>
+                                        Data Rapot
+                                    </a>
+                                </li> 
+                                <li>
                                     <a href="<?= base_url('Tu/mapel') ?>">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Data Mapel

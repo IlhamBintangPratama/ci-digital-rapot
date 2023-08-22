@@ -232,8 +232,6 @@ public function fungsiadd()
   ];
   $nis = $this->input->post('nis');
   $nama = $this->input->post('nama');
-  $jk = $this->input->post('jk');
-  $no_hp = $this->input->post('no_hp');
   $rombel = $this->input->post('rombel');
   $password = $this->input->post('password');
   $this->form_validation->set_rules($rules);
@@ -243,8 +241,6 @@ public function fungsiadd()
   $ArrInsert = array(
     'nis' => $nis,
     'nama' => $nama,
-    'jk' => $jk,
-    'no_hp' => $no_hp,
     'id_rombel' => $rombel,
     'username' => $nis,
     'password' => md5($password)
@@ -365,6 +361,7 @@ public function ps()
 public function addps()
 {
   $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
+  $data['nama_guru'] = $this->M_Nilai->get_data('tb_guru')->result();
 
   
   $this->load->view('tu/addps', $data);
@@ -374,9 +371,10 @@ public function fungsiaddps()
   $rules = [
     [
       'field' => 'rombel',
-      'rules' => 'required',
+      'rules' => 'required|is_unique[tb_ps.id_rombel]',
       'errors' => [
-        'required' => '<span style="color:red">Rombel wajib diisi</span>'
+        'required' => '<span style="color:red">Rombel wajib diisi</span>',
+        'is_unique' => '<span style="color:red">Rombel sudah diambil</span>'
       ]
     ],
     [
@@ -1136,10 +1134,6 @@ public function cetakrapot()
       // 'id_mapel' => $id_mapel,
       'username' => $username,
       'nama_guru' => $nama_guru
-    );
-    $ArrUpdateGuru = array(
-      'nip' => $nip,
-      'id_mapel' => $id_mapel
     );
     $this->TuModel->updateDataGuru($nip, $ArrUpdate);
     // $this->TuModel->updateDataGuruMapel($id, $ArrUpdateGuru);

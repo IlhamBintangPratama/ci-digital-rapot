@@ -46,7 +46,7 @@
                                                 <th>No</th>
                                                 <th>Nis</th>
                                                 <th>Nama </th>
-                                                <th>No Hp</th>
+                                                <!-- <th>No Hp</th> -->
                                                 <th>Rombel</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -62,7 +62,7 @@
                                                 <td><?php echo $key->nis ?></td>
                                                 
                                                 <td><?php echo $key->nama ?></td>
-                                                <td><?php echo $key->no_hp ?></td>
+                                                <!-- <td><?php echo $key->no_hp ?></td> -->
                                                 <td><?php echo $key->rombel ?></td>
                                                 <td>
                                                     <a href="<?php echo base_url('Tu/editsiswa')?>/<?php echo $key->nis?>"style="margin-right: 30px;">Ubah Data</a>

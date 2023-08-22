@@ -51,21 +51,7 @@
                                             <input type="text" class="form-control" value="<?php echo set_value('nama') ?>" name="nama"> 
                                             <?= form_error('nama')?>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Jenis Kelamin</label>
-                                            <select class="form-control" name="jk">
-                                              <option value="" disabled selected>-pilih-</option>
-                                              <option value="P">Perempuan</option>
-                                              <option value="L">Laki-Laki</option>
-                                            </select>
-                                            <!-- <input type="text" class="form-control" value="<?php echo set_value('jk') ?>" name="jk">  -->
-                                            <?= form_error('jk')?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>No Hp</label>
-                                            <input type="text" class="form-control" value="<?php echo set_value('no_hp') ?>" name="no_hp"> 
-                                            <?= form_error('no_hp')?>
-                                        </div>
+                                        
                                         
                                         <div class="form-group">
                                             <label>Rombel</label>
