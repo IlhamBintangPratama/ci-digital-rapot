@@ -27,6 +27,14 @@ class M_Nilai extends CI_Model{
 		$this->db->where($where);
 		$this->db->delete($table);
 	}	
+
+	function checkEditableNullOrNot($nis, $id_mapel, $id_jenis, $id_kategori){
+		$this->db->where('nis', $nis);
+		$this->db->where('id_mapel', $id_mapel);
+		$this->db->where('id_jenis', $id_jenis);
+		$this->db->where('id_kategori', $id_kategori);
+		return $this->db->get('tb_nilai')->row();
+	}
 	
 }
 ?>

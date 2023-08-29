@@ -131,12 +131,14 @@
                                                 value="<?php echo $this->input->post('kategori') ?>">
 
                                             <td><input type="text" name="mapel[]"
-                                                    value="<?php echo $this->input->post('mapel') ?>"></td>
+                                                    value="<?php echo $this->input->post('mapel') ?>" readonly></td>
                                             </td>
                                             <td><?php echo $key->nama ?></td>
                                             <td>
                                                 <input type="text " class="" name="nilai[]"
-                                                    value="<?php echo $key->nilai ?>">
+                                                    value="<?php echo $key->nilai ?>" <?= date('Y-m-d H:i:s', time()) > $key->editable && $key->editable != null ? "readonly" : "" ?>>
+                                                 <!-- <input type="text" name="editable[]" value="<?=date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). ' + 1 days'))?>">    -->
+
                                             </td>
 
 

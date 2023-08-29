@@ -164,5 +164,15 @@ class TuModel extends CI_Model {
 
         return $this->db->delete('tb_nilai', array('nis' => $nis));
 
-    }	
+    }
+    
+    public function insertToken($username,$data) {
+        $this->db->where('username', $username);
+        $this->db->update('tb_tu', $data);
+    }
+
+    public function insertPassword($token,$data) {
+        $this->db->where('token', $token);
+        $this->db->update('tb_tu', $data);
+    }
 }

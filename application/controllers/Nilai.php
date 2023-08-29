@@ -107,7 +107,6 @@ class Nilai extends CI_Controller {
       'nis' => $this->input->post('nis'),
       'nilai' => $this->input->post('nilai')
 
-
     );
 
     $this->db->insert('tb_nilai',$data);
@@ -126,8 +125,16 @@ class Nilai extends CI_Controller {
     $id_mapel = $_POST['mapel']; // Ambil data telp dan masukkan ke variabel telp
     $id_kategori = $_POST['kategori']; // Ambil data alamat dan masukkan ke variabel alamat
     $nilai = $_POST['nilai']; // Ambil data alamat dan masukkan ke variabel alamat
+    // $editable = $_POST['editable']; // Ambil data waktu editable masukkan ke variable editable untuk validasi waktu edit (jangka waktu)
     $data = array();
-    
+
+
+
+    // $currentDate = date('Y-m-d H:i:s');
+    // echo date('Y-m-d H:i:s', strtotime($currentDate. ' + 1 days'));
+    // die();
+    // echo json_encode();
+
     $index = 0; // Set index array awal dengan 0
     foreach($id as $dataid){ // Kita buat perulangan berdasarkan nis sampai data terakhir
       array_push($data, array(
@@ -137,10 +144,14 @@ class Nilai extends CI_Controller {
         'id_mapel'=>$id_mapel[$index],  // Ambil dan set data telepon sesuai index array dari $index
         'id_kategori'=>$id_kategori[$index],  // Ambil dan set data telepon sesuai index array dari $index
         'nilai'=>$nilai[$index],  // Ambil dan set data alamat sesuai index array dari $index
+        'editable'=> ($this->M_Nilai->checkEditableNullOrNot($nis[$index], $id_mapel[$index], $id_jenis[$index], $id_kategori[$index])->editable == null && $nilai[$index] == 0) ? NULL 
+        : (($nilai[$index] != 0 && $this->M_Nilai->checkEditableNullOrNot($nis[$index], $id_mapel[$index], $id_jenis[$index], $id_kategori[$index])->editable == null) ? date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). ' + 1 days'))
+        : $this->M_Nilai->checkEditableNullOrNot($nis[$index], $id_mapel[$index], $id_jenis[$index], $id_kategori[$index])->editable),  // Ambil dan set data editable sesuai index array dari $index
       ));
       
       $index++;
     }
+    
     $sql = $this->db->update_batch('tb_nilai',$data,'id');
     // $sql = $this->SaveModel->save_batch($data); // Panggil fungsi save_batch yang ada di model siswa (SiswaModel.php)
     

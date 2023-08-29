@@ -8,4 +8,13 @@ class KepsekModel extends CI_Model {
 
         return $result;
     }
+    public function insertToken($username,$data) {
+        $this->db->where('username', $username);
+        $this->db->update('tb_kepsek', $data);
+    }
+
+    public function insertPassword($token,$data) {
+        $this->db->where('token', $token);
+        $this->db->update('tb_kepsek', $data);
+    }
 }

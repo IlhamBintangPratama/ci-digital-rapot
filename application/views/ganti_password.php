@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V15</title>
+	<title>Reset Password</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -38,28 +38,28 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form" action="<?php echo base_url('LoginTu/login') ?>" method="POST">
-					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Masukkan Username">
+				<form class="login100-form validate-form" action="<?php echo base_url('ResetPassword/updatePassword') ?>" method="POST">
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Password is required">
+						<span class="label-input100">Password</span>
+						<input class="input100" type="password" name="password" placeholder="Masukkan password baru">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" minlength="8" placeholder="Masukkan Password">
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Password Confirm is required">
+						<span class="label-input100">Password Konfirmasi</span>
+						<input class="input100" type="password" name="password_confirm" placeholder="Masukkan Password Konfirmasi">
 						<span class="focus-input100"></span>
 					</div>
-					<!-- <a href="<?= base_url("resetPassword?type=tu") ?>">Reset Password</a> -->
+
+                    <input type="text" name="type" value="<?=$_GET['type']?>">
+                    <input type="text" name="token" value="<?=$_GET['token']?>">
 
 					
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn bg-primary" style="width: 50vh">
-							Login
+							Ganti Password
 						</button>
-						<a href="<?= base_url("resetPassword?type=tu") ?>">Reset Password</a>
 					</div>
-
 				</form>
 			</div>
 		</div>

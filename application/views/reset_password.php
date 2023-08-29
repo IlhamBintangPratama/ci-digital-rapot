@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V15</title>
+	<title>Reset Password</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -38,28 +38,21 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form" action="<?php echo base_url('LoginTu/login') ?>" method="POST">
+				<form class="login100-form validate-form" action="<?php echo base_url('ResetPassword/request') ?>" method="POST">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
 						<input class="input100" type="text" name="username" placeholder="Masukkan Username">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" minlength="8" placeholder="Masukkan Password">
-						<span class="focus-input100"></span>
-					</div>
-					<!-- <a href="<?= base_url("resetPassword?type=tu") ?>">Reset Password</a> -->
+                    <input type="text" name="type" value="<?=$_GET['type']?>">
 
 					
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn bg-primary" style="width: 50vh">
-							Login
+							Reset Password
 						</button>
-						<a href="<?= base_url("resetPassword?type=tu") ?>">Reset Password</a>
 					</div>
-
 				</form>
 			</div>
 		</div>
