@@ -8,7 +8,17 @@ class Murid extends CI_Controller {
 		parent::__construct();
 		$this->load->model('M_Nilai');
 	}	
+	function group(){
+		$nis = $this->session->userdata('nis');
+		$this->db->select('tahun_ajaran');
+		$this->db->from('tb_siswa_kelas');
+		$this->db->where('nis', $nis);
+		$this->db->group_by('tahun_ajaran');
+		$this->db->order_by('tahun_ajaran', 'asc');
+		$query = $this->db->get();
+		return $query->result();
 
+	}
 	public function index()
 	{
 	$data['content'] = $this->db->get('tb_nilai');
@@ -22,7 +32,8 @@ class Murid extends CI_Controller {
 
 	public function nilai()
 	{
-		$this->load->view('siswa/nilai');
+		$data['tahun_ajaran'] = $this->group();
+		$this->load->view('siswa/nilai', $data);
 	}
 
 	public function jenis()
@@ -32,9 +43,10 @@ class Murid extends CI_Controller {
 	public function hasil()
 	{
 		$jenis = $this->uri->segment(3);
+		$tahun = $this->uri->segment(4);
 		$nis = $this->session->userdata('username');
-		$data['hasil'] = $this->db->query("SELECT * FROM tb_siswa,tb_nilai,tb_mapel WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.nis = $nis and tb_nilai.id_jenis = $jenis and tb_nilai.id_kategori = 1 ")->result();
-		$data['hasil2'] = $this->db->query("SELECT * FROM tb_siswa,tb_nilai,tb_mapel WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.nis = $nis and tb_nilai.id_jenis = $jenis and tb_nilai.id_kategori = 2 ")->result();
+		$data['hasil'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_nilai,tb_mapel WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_siswa_kelas.nis and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.nis = $nis and tb_nilai.id_jenis = $jenis and tb_nilai.id_kategori = 1 and tb_siswa_kelas.tahun_ajaran = '$tahun'")->result();
+		$data['hasil2'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_nilai,tb_mapel WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_siswa_kelas.nis and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.nis = $nis and tb_nilai.id_jenis = $jenis and tb_nilai.id_kategori = 2 and tb_siswa_kelas.tahun_ajaran = '$tahun'")->result();
 
 
 		$this->load->view('siswa/hasil',$data);
@@ -42,39 +54,52 @@ class Murid extends CI_Controller {
 
 	public function absensi()
 	{
-		$this->load->view('siswa/absensi');
+		$data['tahun_ajaran'] = $this->group();
+		$this->load->view('siswa/absensi', $data);
 	}
 
 	public function hasilabsen()
 	{
 		$sem = $this->uri->segment(3);
+		$tahun = $this->uri->segment(4);
 		$nis = $this->session->userdata('username');
-		$data['hasil'] = $this->db->query("SELECT * FROM tb_siswa,tb_absensi,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_siswa.nis = tb_absensi.nis and tb_siswa.nis = $nis and tb_absensi.id_semester = $sem")->result();
+		$data['hasil'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_absensi,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa_kelas.id_siswa_kelas = tb_absensi.id_siswa_kelas and tb_siswa_kelas.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis and tb_absensi.id_semester = $sem and tb_siswa_kelas.tahun_ajaran = '$tahun'")->result();
 
 		$this->load->view('siswa/hasilabsen',$data);
 	}
-
+	
 	public function raport()
 	{
-		$this->load->view('siswa/raport');
+		$data['tahun_ajaran'] = $this->group();
+		
+		$this->load->view('siswa/raport', $data);
 	}
 
 	public function hasilraport()
 	{
 		$nis = $this->session->userdata('username');
         $sem = $this->uri->segment(3);
-        // var_dump($nis);
-		// die;
-        
+		$thn = $this->uri->segment(4);
 
-        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $nis");
-        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.nis = tb_siswa.nis and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");    
-        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_upd WHERE tb_siswa.nis = tb_upd.nis and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_upd.nis = $nis");  
-        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_prestasi WHERE tb_siswa.nis = tb_prestasi.nis and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");  
 
-        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
-        $sintakkategori = "and tb_siswa.nis = $nis and tb_nilai.id_kategori";
+		// $sk = $this->db->query("SELECT * FROM tb_siswa, tb_siswa_kelas WHERE tb_siswa.nis = tb_siswa_kelas.nis AND tb_siswa_kelas.nis = $nis AND tb_siswa_kelas.tahun_ajaran = '$thn'")->result();
+        // foreach($sk as $s){
+		// 	$tes = $s->tahun_ajaran;
+		
+		// }
+		// // var_dump($tes);
+		// // die;
 
+        $data['content'] = $this->db->query("SELECT * FROM tb_siswa_kelas,tb_siswa,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa_kelas.tahun_ajaran = '$thn' and tb_siswa_kelas.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis");
+        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa_kelas where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_semester.id_semester = $sem and tb_siswa_kelas.nis = $nis and tb_siswa_kelas.tahun_ajaran = '$thn'");    
+        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa_kelas,tb_upd WHERE tb_siswa_kelas.id_siswa_kelas = tb_upd.id_siswa_kelas and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_siswa_kelas.nis = $nis and tb_upd.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_siswa_kelas.tahun_ajaran = '$thn'");  
+        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa_kelas,tb_prestasi WHERE tb_siswa_kelas.id_siswa_kelas = tb_prestasi.id_siswa_kelas and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa_kelas.nis = $nis and tb_siswa_kelas.tahun_ajaran = '$thn'");  
+
+        // $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
+        // $sintakkategori = "and tb_siswa.nis = $nis and tb_nilai.id_kategori";
+		$sintakjenis = "SELECT * FROM tb_mapel,tb_siswa_kelas,tb_siswa,tb_rombel,tb_nilai WHERE tb_siswa.nis = tb_siswa_kelas.nis and tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
+        $sintakkategori = "and tb_siswa_kelas.nis = $nis and tb_nilai.id_kategori";
+		
         
 
         // SEMESTER 1
@@ -90,7 +115,8 @@ class Murid extends CI_Controller {
         $data['uh4k'] = $this->db->query("$sintakjenis = 4 $sintakkategori = 2")->result();
         $data['utsk'] = $this->db->query("$sintakjenis = 9 $sintakkategori = 2")->result();
         $data['uask'] = $this->db->query("$sintakjenis = 10 $sintakkategori = 2")->result();
-
+		// var_dump($data['uh2p']);
+		// die;
         // SEMESTER 2
 
         $data['uh5p'] = $this->db->query("$sintakjenis = 5 $sintakkategori = 1")->result();

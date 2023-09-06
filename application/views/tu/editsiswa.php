@@ -52,16 +52,7 @@
                                             <?= form_error('nama')?>
                                         </div>
                                         
-                                        <div class="form-group">
-                                            <label>Rombel</label>
-                                            <select class="form-control" name="rombel">
-                                              <option value="" disabled selected>-pilih-</option>
-                                            <?php foreach($rombel as $rm){ ?>
-                                              <option  value="<?php echo $rm->id_rombel; ?>" <?=$rm->id_rombel == $querySiswaDetail->id_rombel ? "selected" : null ?>><?php echo $rm->rombel; ?></option>
-                                            <?php } ?>
-                                            </select> 
-                                            <?= form_error('rombel')?>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label>Username</label>
                                             <input type="text" class="form-control" value="<?php echo $querySiswaDetail->username; ?>" name="username"> 

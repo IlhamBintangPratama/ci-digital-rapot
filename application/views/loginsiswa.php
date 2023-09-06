@@ -56,6 +56,7 @@
 						<button class="login100-form-btn bg-primary" style="width: 50vh">
 							Login
 						</button>
+						<a href="<?= base_url("resetPassword?type=siswa") ?>">Reset Password</a>
 					</div>
 				</form>
 			</div>

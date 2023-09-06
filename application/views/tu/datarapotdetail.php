@@ -141,7 +141,7 @@
                         </div>
                         <div class="col-md-6">
                           <p>
-                            2022-2023
+                            <?php echo $key->tahun_ajaran ?>
                           </p>
                         </div>
                         <input type="hidden" name="nis" value="<?php echo $key->nis  ?>">

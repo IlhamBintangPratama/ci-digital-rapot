@@ -43,7 +43,7 @@ class Page extends MY_Controller {
 	{
 		$data['content'] = $this->db->get('tb_siswa');
 		$nis = $this->session->userdata('nis');
-		$data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_siswa.nis = $nis")->result();
+		$data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis")->result();
 		// var_dump($data['siswa']);
 		// die();
 		$this->load->view('halutamaortu',$data);

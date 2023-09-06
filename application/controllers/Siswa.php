@@ -62,7 +62,7 @@ class Siswa extends CI_Controller {
 		}
 		
 		
-		$data['siswa'] = $this->db->query("SELECT * FROM tb_nilai,tb_siswa WHERE tb_nilai.nis = tb_siswa.nis and id_rombel=$rombel and id_jenis=$jenis and id_kategori=$kategori and id_mapel = $mapel ")->result();
+		$data['siswa'] = $this->db->query("SELECT * FROM tb_nilai,tb_siswa,tb_siswa_kelas WHERE tb_nilai.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_siswa.nis = tb_siswa_kelas.nis and id_rombel=$rombel and id_jenis=$jenis and id_kategori=$kategori and id_mapel = $mapel ")->result();
 		
 		
 

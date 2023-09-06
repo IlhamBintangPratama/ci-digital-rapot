@@ -101,7 +101,7 @@
                                                 <td><?php echo $r->nis ?>
                                                     <input type="hidden" name="id[]" value="<?php echo $r->id ?>">
 
-                                                    <input type="hidden" name="nis[]" value="<?php echo $r->nis ?>">
+                                                    <input type="hidden" name="nis[]" value="<?php echo $r->id_siswa_kelas ?>">
                                                     <input type="hidden" name="semester[]" value="<?php echo $sem ?>">
 
                                                 </td>

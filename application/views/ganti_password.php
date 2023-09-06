@@ -51,8 +51,8 @@
 						<span class="focus-input100"></span>
 					</div>
 
-                    <input type="text" name="type" value="<?=$_GET['type']?>">
-                    <input type="text" name="token" value="<?=$_GET['token']?>">
+                    <input type="hidden" name="type" value="<?=$_GET['type']?>">
+                    <input type="hidden" name="token" value="<?=$_GET['token']?>">
 
 					
 					<div class="container-login100-form-btn">

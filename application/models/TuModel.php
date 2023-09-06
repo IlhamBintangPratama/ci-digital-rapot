@@ -8,8 +8,14 @@ class TuModel extends CI_Model {
 
         return $result;
     }
+    
     function insertDataSiswa($data){
         $this->db->insert('tb_siswa', $data);
+        // return $this->db->insert_id();
+    }
+    function insertDataSiswakelas($data){
+        $idsk = $this->db->insert('tb_siswa_kelas', $data);
+        return $this->db->insert_id();
     }
     function insertDataRombel($data){
         $this->db->insert('tb_rombel', $data);
@@ -91,6 +97,10 @@ class TuModel extends CI_Model {
         $query = $this->db->query("SELECT * FROM tb_guru_mapel,tb_mapel WHERE tb_mapel.id_mapel = $id_mapel and tb_guru_mapel.id_mapel = $id_mapel");
         return $query->row();
     }
+    function getDataSiswaKelasDetail($id_siswa_kelas){
+        $query = $this->db->query("SELECT * FROM tb_siswa_kelas, tb_rombel WHERE tb_rombel.id_rombel = tb_siswa_kelas.id_rombel and tb_siswa_kelas.id_siswa_kelas = $id_siswa_kelas");
+        return $query->row();
+    }
     function getDataGuruDetail($nip){
         // $this->db->where('nip', $nip);
         // var_dump($id_mapel);
@@ -107,6 +117,10 @@ class TuModel extends CI_Model {
     function updateDataGuruMapel($id, $data){
         $this->db->where('id_mapel', $id);
         $this->db->update('tb_guru_mapel', $data);
+    }
+    function updateDataSiswaKelas($id_siswa_kelas, $data){
+        $this->db->where('id_siswa_kelas', $id_siswa_kelas);
+        $this->db->update('tb_siswa_kelas', $data);
     }
     public function delete_mapel($id_mapel)
 

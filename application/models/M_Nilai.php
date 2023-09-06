@@ -13,6 +13,15 @@ class M_Nilai extends CI_Model{
 	function get_data($table){
 		return $this->db->get($table);
 	}
+	function group_tahun()
+	{
+		$this->db->select('tahun_ajaran');
+		$this->db->from('tb_siswa_kelas');
+		$this->db->group_by('tahun_ajaran');
+		$this->db->order_by('tahun_ajaran', 'asc');
+		$query = $this->db->get();
+		return $query->result();
+	}
 
 	function insert_data($data,$table){
 		$this->db->insert($table,$data);
@@ -29,7 +38,7 @@ class M_Nilai extends CI_Model{
 	}	
 
 	function checkEditableNullOrNot($nis, $id_mapel, $id_jenis, $id_kategori){
-		$this->db->where('nis', $nis);
+		$this->db->where('id_siswa_kelas', $nis);
 		$this->db->where('id_mapel', $id_mapel);
 		$this->db->where('id_jenis', $id_jenis);
 		$this->db->where('id_kategori', $id_kategori);

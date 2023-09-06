@@ -15,7 +15,7 @@ class Ps extends CI_Controller {
   public function index()
   {
     $rombel = $this->input->post('rombel');
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel")->result();
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa_kelas.nis = tb_siswa.nis")->result();
     $this->load->view('ps/siswa',$data);
   } 
 
@@ -23,7 +23,7 @@ class Ps extends CI_Controller {
   {
 
     $rombel = $this->input->post('rombel');
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_siswa.id_rombel = $id ORDER BY tb_rombel.rombel ASC,tb_siswa.nama ASC")->result();
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa_kelas.id_rombel = $id and tb_siswa.nis = tb_siswa_kelas.nis ORDER BY tb_rombel.rombel ASC,tb_siswa.nama ASC")->result();
     $this->load->view('ps/siswa',$data);
 
   } 
@@ -32,7 +32,7 @@ class Ps extends CI_Controller {
     {
       $data['jenis'] = $this->M_Nilai->get_data('tb_jenis')->result();
       $this->db->where('nis', $id);
-      $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id");  
+      $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id and tb_siswa_kelas.nis = tb_siswa.nis");  
 
 
       $this->load->view('ps/detailsiswa', $data);
@@ -48,7 +48,7 @@ class Ps extends CI_Controller {
         $data['jenis'] = $this->M_Nilai->get_data('tb_jenis')->result();
         $this->db->where('nis', $id);
         $nis = $this->input->post('nis');
-        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id");  
+        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id and tb_siswa_kelas.nis = tb_siswa.nis");  
 
         $rombel = $this->input->post('rombel');
         $jenis = $this->input->post('jenis');
@@ -59,8 +59,8 @@ class Ps extends CI_Controller {
           return $this->load->view('ps/detailsiswa', $data);
         }
         
-        $data['p'] = $this->db->query("SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis = $jenis and tb_siswa.nis = $nis and tb_nilai.id_kategori = 1")->result();
-        $data['k'] = $this->db->query("SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis = $jenis and tb_siswa.nis = $nis and tb_nilai.id_kategori = 2")->result();  
+        $data['p'] = $this->db->query("SELECT * FROM tb_mapel,tb_siswa,tb_siswa_kelas,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis = $jenis and tb_siswa.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis and tb_nilai.id_kategori = 1")->result();
+        $data['k'] = $this->db->query("SELECT * FROM tb_mapel,tb_siswa,tb_siswa_kelas,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis = $jenis and tb_siswa.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis and tb_nilai.id_kategori = 2")->result();  
 
         $this->load->view('ps/data_detail', $data);
   }
@@ -69,7 +69,7 @@ class Ps extends CI_Controller {
     {
       $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
       $this->db->where('nis', $id);
-      $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id");  
+      $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id and tb_siswa_kelas.nis = tb_siswa.nis");  
 
       $sem = $this->input->post('semester');
 
@@ -81,13 +81,13 @@ class Ps extends CI_Controller {
         $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
         $this->db->where('nis', $id);
         $nis = $this->input->post('nis');
-        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id");  
+        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $id and tb_siswa_kelas.nis = tb_siswa.nis");  
 
         $rombel = $this->input->post('rombel');
         $semester = $this->input->post('semester');
      
 
-        $data['p'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.nis = tb_siswa.nis and tb_semester.id_semester = $semester and tb_siswa.nis = $id");
+        $data['p'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa,tb_siswa_kelas where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_semester.id_semester = $semester and tb_siswa.nis = $id and tb_siswa_kelas.nis = tb_siswa.nis");
 
 
 
@@ -127,7 +127,7 @@ class Ps extends CI_Controller {
       return $this->load->view('ps/absensi',$data);
     }
 
-    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel,tb_absensi WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa.nis = tb_absensi.nis and tb_siswa.id_rombel = $rombel and tb_absensi.id_semester = $semester");  
+    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel,tb_absensi WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa_kelas.id_siswa_kelas = tb_absensi.id_siswa_kelas and tb_siswa_kelas.id_rombel = $rombel and tb_absensi.id_semester = $semester and tb_siswa_kelas.nis = tb_siswa.nis");  
     $data['sem'] = $this->input->post('semester');
 
     $this->load->view('ps/add_absensi',$data);
@@ -152,8 +152,8 @@ class Ps extends CI_Controller {
     if($this->form_validation->run()==FALSE){
       return $this->load->view('ps/upd',$data);
     }
-    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa.id_rombel = $rombel")->result();  
-    $data['upd'] = $this->db->query("SELECT * FROM tb_upd,tb_siswa where tb_siswa.nis = tb_upd.nis AND tb_siswa.id_rombel = $rombel and tb_upd.semester = $semester  ")->result();
+    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa_kelas.id_rombel = $rombel and tb_siswa_kelas.nis = tb_siswa.nis")->result();  
+    $data['upd'] = $this->db->query("SELECT * FROM tb_upd,tb_siswa,tb_siswa_kelas where tb_siswa_kelas.id_siswa_kelas = tb_upd.id_siswa_kelas AND tb_siswa_kelas.id_rombel = $rombel and tb_upd.semester = $semester and tb_siswa_kelas.nis = tb_siswa.nis")->result();
     $this->load->view('ps/add_upd',$data);
   }
 
@@ -164,8 +164,8 @@ class Ps extends CI_Controller {
     $rayon = $this->input->post('rayon');
     $data['upd'] = $this->M_Nilai->get_data('tb_jenisupd')->result();
 
-    $data['content'] = $this->db->query("SELECT * FROM tb_upd,tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and
-    tb_siswa.nis = tb_upd.nis and  tb_upd.id = $id")->result();  
+    $data['content'] = $this->db->query("SELECT * FROM tb_upd,tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and
+    tb_siswa_kelas.id_siswa_kelas = tb_upd.id_siswa_kelas and tb_upd.id = $id and tb_siswa_kelas.nis = tb_siswa.nis")->result();  
    
     $this->load->view('ps/add_updnilai',$data);
   }
@@ -195,8 +195,8 @@ class Ps extends CI_Controller {
       return $this->load->view('ps/prestasi',$data);
     }
 
-    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and  tb_rombel.id_rombel = $rombel and tb_siswa.id_rombel = $rombel")->result();  
-    $data['prestasi'] = $this->db->query("SELECT * FROM tb_prestasi,tb_siswa where tb_siswa.nis = tb_prestasi.nis AND tb_siswa.id_rombel = $rombel and tb_prestasi.semester = $semester  ")->result();
+    $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_rombel.id_rombel = $rombel and tb_siswa_kelas.id_rombel = $rombel and tb_siswa_kelas.nis = tb_siswa.nis")->result();  
+    $data['prestasi'] = $this->db->query("SELECT * FROM tb_prestasi,tb_siswa,tb_siswa_kelas where tb_siswa_kelas.id_siswa_kelas = tb_prestasi.id_siswa_kelas AND tb_siswa_kelas.id_rombel = $rombel and tb_prestasi.semester = $semester and tb_siswa_kelas.nis = tb_siswa.nis")->result();
     $this->load->view('ps/add_prestasi',$data);
   }
   public function add_prestasinilai($id = null)
@@ -204,8 +204,8 @@ class Ps extends CI_Controller {
 
     $rayon = $this->input->post('rayon');
 
-    $data['content'] = $this->db->query("SELECT * FROM tb_prestasi,tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and
-    tb_siswa.nis = tb_prestasi.nis and  tb_prestasi.id = $id")->result();  
+    $data['content'] = $this->db->query("SELECT * FROM tb_prestasi,tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and
+    tb_siswa_kelas.id_siswa_kelas = tb_prestasi.id_siswa_kelas and  tb_prestasi.id = $id and tb_siswa_kelas.nis = tb_siswa.nis")->result();  
    
     $this->load->view('ps/add_prestasinilai',$data);
   }
@@ -260,7 +260,7 @@ class Ps extends CI_Controller {
     foreach($id as $dataid){ // Kita buat perulangan berdasarkan nis sampai data terakhir
       array_push($data, array(
         'id'=>$dataid,
-        'nis'=>$nis[$index],
+        'id_siswa_kelas'=>$nis[$index],
         'id_semester'=>$id_semester[$index],  // Ambil dan set data nama sesuai index array dari $index
         's'=>$s[$index],  // Ambil dan set data telepon sesuai index array dari $index
         'i'=>$i[$index],  // Ambil dan set data telepon sesuai index array dari $index
@@ -307,23 +307,24 @@ class Ps extends CI_Controller {
       return $this->load->view('ps/rapot' ,$data);
     }
 
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_siswa.id_rombel = $rombel ORDER BY tb_rombel.id_rombel ASC , tb_siswa.nama ASC")->result();
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_siswa_kelas.id_rombel = $rombel and tb_siswa_kelas.nis = tb_siswa.nis ORDER BY tb_rombel.id_rombel ASC , tb_siswa.nama ASC")->result();
     $this->load->view('ps/datarapot',$data);
 
   }
 
   public function datarapotdetail()
   {
+        $kls = $this->uri->segment(5);
         $nis = $this->uri->segment(4);
         $sem = $this->uri->segment(3);
 
 
-        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $nis");
-        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.nis = tb_siswa.nis and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");      
+        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa_kelas.id_rombel = $kls and tb_siswa.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis");
+        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa_kelas where tb_absensi.id_semester = tb_semester.id_semester and tb_siswa_kelas.id_rombel = $kls and tb_absensi.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_semester.id_semester = $sem and tb_siswa_kelas.nis = $nis");      
 
-        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
-        $sintakkategori = "and tb_siswa.nis = $nis and tb_nilai.id_kategori";
-
+        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa_kelas,tb_siswa,tb_rombel,tb_nilai WHERE tb_siswa.nis = tb_siswa_kelas.nis and tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
+        $sintakkategori = "and tb_siswa_kelas.id_rombel = $kls and tb_nilai.id_kategori";
+        
 
         // SEMESTER 1
         $data['uh1p'] = $this->db->query("$sintakjenis = 1 $sintakkategori = 1")->result();
@@ -393,7 +394,7 @@ class Ps extends CI_Controller {
     }
     
     
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_rombel.id_rombel = $rombel  ")->result();
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_rombel.id_rombel = $rombel and tb_siswa_kelas.nis = tb_siswa.nis")->result();
 
     $this->load->view('ps/datasiswa', $data);
 
@@ -404,13 +405,13 @@ class Ps extends CI_Controller {
         $sem = $this->uri->segment(3);
 
 
-        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $nis");
-        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.nis = tb_siswa.nis and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");    
-        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_upd WHERE tb_siswa.nis = tb_upd.nis and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_upd.nis = $nis");  
-        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_prestasi WHERE tb_siswa.nis = tb_prestasi.nis and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");  
+        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis");
+        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa,tb_siswa_kelas where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_semester.id_semester = $sem and tb_siswa.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis");    
+        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_siswa_kelas,tb_upd WHERE tb_siswa_kelas.id_siswa_kelas = tb_upd.id_siswa_kelas and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_siswa_kelas.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis");  
+        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_siswa_kelas,tb_prestasi WHERE tb_siswa_kelas.id_siswa_kelas = tb_prestasi.id_siswa_kelas and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa.nis = $nis and tb_siswa_kelas.nis = tb_siswa.nis");  
         
-        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
-        $sintakkategori = "and tb_siswa.nis = $nis and tb_nilai.id_kategori";
+        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa,tb_siswa_kelas,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis and tb_siswa_kelas.nis = tb_siswa.nis";
+        $sintakkategori = "and tb_siswa.nis = $nis and tb_nilai.id_kategori and tb_siswa_kelas.nis = tb_siswa.nis";
 
         
 

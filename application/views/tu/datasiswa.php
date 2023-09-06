@@ -27,14 +27,23 @@
                             <form method="post" action="<?php echo base_url(); ?>tu/datasiswa">
 
                                 <div class="form-row">
-
+                                    <div class="form-group col-md-3">
+                                        <label for="">Tahun Ajaran</label>
+                                        <select class="form-control" name="tahun_ajaran">
+                                            <option value="" disabled selected>-pilih-</option>
+                                            <?php foreach ($tahun_ajaran as $r) { ?>
+                                                <option value="<?php echo $r->tahun_ajaran; ?>" <?php if($_POST['tahun_ajaran'] === $r->tahun_ajaran){echo "selected";} ?>><?php echo $r->tahun_ajaran; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <?= form_error('tahun_ajaran') ?>
+                                    </div>
                                     <div class="form-group col-md-3">
                                         <label for="">Rombel</label>
                                         <select class="form-control" name="rombel">
                                             <option value="" disabled selected>-pilih-</option>
                                             <?php foreach($rombel as $r){ ?>
-                                            <option value="<?php echo $r->id_rombel; ?>" <?php if($_POST['rombel'] === $r->id_rombel){echo "selected";} ?>><?php echo $r->rombel; ?>
-                                            </option>
+                                                <option value="<?php echo $r->id_rombel; ?>" <?php if($_POST['rombel'] === $r->id_rombel){echo "selected";} ?>><?php echo $r->rombel; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -79,7 +88,7 @@
                                         <td><?php echo $key->nis ?></td>
                                         <td><?php echo $key->nama ?></td>
                                         <td><?php echo $key->rombel ?></td>
-                                        <td class="text-center"><a href="<?php echo base_url()?>tu/datarapotdetail/<?= $this->input->post('semester')?>/<?= $key->nis; ?>">Cetak Nilai</a></td>
+                                        <td class="text-center"><a href="<?php echo base_url()?>tu/datarapotdetail/<?= $this->input->post('semester')?>/<?= $key->id_siswa_kelas; ?>">Cetak Nilai</a></td>
                                     </tr>
 
                                     <?php 

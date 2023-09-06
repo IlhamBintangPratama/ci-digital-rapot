@@ -45,7 +45,7 @@
 						<span class="focus-input100"></span>
 					</div>
 
-                    <input type="text" name="type" value="<?=$_GET['type']?>">
+                    <input type="hidden" name="type" value="<?=$_GET['type']?>">
 
 					
 					<div class="container-login100-form-btn">

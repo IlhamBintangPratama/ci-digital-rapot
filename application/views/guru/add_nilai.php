@@ -104,7 +104,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nis</th>
+                                            <!-- <th>Nis</th> -->
                                             <!-- <th>Jenis</th>
                                                 <th>Kategori</th> -->
                                             <th>Mapel</th>
@@ -120,9 +120,9 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row"><?php echo $no++ ?></th>
-                                            <td><?php echo $key->nis ?>
-                                                <input type="hidden" name="nis[]" value="<?php echo $key->nis ?>">
-                                            </td>
+                                           
+                                                <input type="hidden" name="nis[]" value="<?php echo $key->id_siswa_kelas ?>">
+                                            
                                             <input type="hidden" name="id[]" value="<?php echo $key->id ?>"></td>
 
                                             <input type="hidden" name="jenis[]"

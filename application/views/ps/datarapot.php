@@ -96,7 +96,7 @@
                                                   <td><?php echo $key->nis ?></td>
                                                   <td><?php echo $key->nama ?></td>
                                                   <td><?php echo $key->rombel ?></td>
-                                                  <td class="text-center"><a href="<?php echo base_url()?>ps/datarapotdetail/<?= $this->input->post('semester')?>/<?= $key->nis; ?>">Cetak Nilai</a></td>
+                                                  <td class="text-center"><a href="<?php echo base_url()?>ps/datarapotdetail/<?= $this->input->post('semester')?>/<?= $key->nis; ?>/<?= $key->id_rombel; ?>">Cetak Nilai</a></td>
                                                 
                                                 </tr>
                                               <?php 

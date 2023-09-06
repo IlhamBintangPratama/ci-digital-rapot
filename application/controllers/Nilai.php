@@ -75,7 +75,7 @@ class Nilai extends CI_Controller {
       return $this->load->view('guru/nilai', $data);
     }
 
-    $data['nilai'] = $this->db->query("select * from tb_siswa,tb_nilai where tb_siswa.nis = tb_nilai.nis and id_rombel=$rombel 
+    $data['nilai'] = $this->db->query("select * from tb_siswa,tb_siswa_kelas,tb_nilai where tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa.nis = tb_siswa_kelas.nis and id_rombel=$rombel 
                                         and id_mapel= $mapel and id_jenis = $jenis and id_kategori = $kategori")->result();
 
       $this->load->view('guru/add_nilai', $data);
@@ -139,7 +139,7 @@ class Nilai extends CI_Controller {
     foreach($id as $dataid){ // Kita buat perulangan berdasarkan nis sampai data terakhir
       array_push($data, array(
         'id' => $dataid,
-        'nis'=>$nis[$index],
+        'id_siswa_kelas'=>$nis[$index],
         'id_jenis'=>$id_jenis[$index],  // Ambil dan set data nama sesuai index array dari $index
         'id_mapel'=>$id_mapel[$index],  // Ambil dan set data telepon sesuai index array dari $index
         'id_kategori'=>$id_kategori[$index],  // Ambil dan set data telepon sesuai index array dari $index

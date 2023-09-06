@@ -19,6 +19,7 @@ class Tu extends CI_Controller {
   public function index()
   {
     $data['content'] = $this->db->get('tb_nilai');
+    $data['tahun_ajaran'] = $this->M_Nilai->group_tahun();
     $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
 
@@ -30,6 +31,7 @@ class Tu extends CI_Controller {
   public function cetak()
   {
   	$data['content'] = $this->db->get('tb_rombel');
+    $data['tahun_ajaran'] = $this->M_Nilai->group_tahun();
     $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
 
@@ -43,6 +45,10 @@ class Tu extends CI_Controller {
   {
     $rules = [
       [
+        'field' => 'tahun_ajaran',
+        'rules' => 'required'
+      ],
+      [
         'field' => 'rombel',
         'rules' => 'required'
       ],
@@ -51,12 +57,12 @@ class Tu extends CI_Controller {
         'rules' => 'required'
       ]
     ];
-
+    $tahun_ajaran = $this->input->post('tahun_ajaran');
     $rombel = $this->input->post('rombel');
     $semester = $this->input->post('semester');
 
     $data['content'] = $this->db->get('tb_rombel');
-
+    $data['tahun_ajaran'] = $this->M_Nilai->group_tahun();
     $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
     $data['semester'] = $this->M_Nilai->get_data('tb_semester')->result();
     $this->form_validation->set_rules($rules);
@@ -65,15 +71,16 @@ class Tu extends CI_Controller {
     }
     
     
-    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel and tb_rombel.id_rombel = $rombel  ")->result();
-
+    $data['siswa'] = $this->db->query("SELECT * FROM tb_siswa_kelas,tb_siswa,tb_rombel WHERE tb_siswa_kelas.tahun_ajaran = '$tahun_ajaran' and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa.nis = tb_siswa_kelas.nis and tb_rombel.id_rombel = $rombel")->result();
+    // var_dump($data['siswa']);
+    // die;
     $this->load->view('tu/datasiswa', $data);
 
   }
 
 public function siswa()
 {
-  $data['dtsiswa'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel where tb_siswa.id_rombel = tb_rombel.id_rombel")->result();
+  $data['dtsiswa'] = $this->db->query("SELECT * FROM tb_siswa")->result();
 
   $this->load->view('tu/siswa', $data);
 }
@@ -188,11 +195,207 @@ public function mapel()
 public function addsiswa()
 {
   // $data['rayon'] = $this->M_Nilai->get_data('tb_rayon')->result();
-  $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
+  // $data['rombel'] = $this->M_Nilai->get_data('tb_rombel')->result();
 
   
-  $this->load->view('tu/addsiswa', $data);
+  $this->load->view('tu/addsiswa');
 }
+public function siswakelas($nis)
+{
+  $data['nissiswa'] = $this->db->query("SELECT * FROM tb_siswa WHERE nis = $nis")->row();
+  $data['dtsiswakelas'] = $this->db->query("SELECT * FROM tb_siswa_kelas, tb_rombel where tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and nis = $nis")->result();
+
+  $this->load->view('tu/siswakelas', $data);
+}
+public function addsiswakelas($nis)
+{
+  $data['nissiswa'] = $this->db->query("SELECT * FROM tb_siswa WHERE nis = $nis")->row();
+  $data['rombel'] = $this->db->get('tb_rombel')->result();
+  $data['tahun'] = $this->db->get('tb_tahun_ajaran')->result();
+  $this->load->view('tu/addsiswakelas', $data);
+}
+public function fungsiaddsiswakelas()
+{
+  $rules = [
+    
+    [
+      'field' => 'rombel',
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">rombel wajib diisi</span>'
+      ]
+    ],
+    
+    [
+      'field' => 'tahun-1',
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Tahun ajaran wajib diisi</span>'
+      ]
+    ],
+    [
+      'field' => 'tahun-2',
+      'rules' => 'required',
+      'errors' => [
+        'required' => '<span style="color:red">Tahun ajaran wajib diisi</span>'
+      ]
+    ],
+  ];
+  $nis = $this->input->post('nis');
+  $rombel = $this->input->post('rombel');
+  $tahun_ajaran = $this->input->post('tahun-1') . "-" .$this->input->post('tahun-2');
+  $this->form_validation->set_rules($rules);
+  if($this->form_validation->run()==FALSE){
+    return $this->load->view('tu/addsiswakelas');
+  }
+  $ArrInsert = array(
+    'nis' => $nis,
+    'id_rombel' => $rombel,
+    'tahun_ajaran' => $tahun_ajaran
+  );
+
+  // var_dump($ArrInsert);
+  // die;
+
+  $idsk = $this->TuModel->insertDataSiswakelas($ArrInsert);
+  // $ArrInsertMapel = array(
+  //   'mapel' => $mapel,
+  //   'nama' => $nama,
+  //   'id_rombel' => $rombel,
+  //   'username' => $username,
+  //   'password' => md5($password)
+  // );
+  $ArrInsertUPD1 = array(
+    'id_siswa_kelas' => $idsk,
+    'semester' => 1,
+    'upd1' => "-",
+    'upd2' => "-",
+    'nilai1' => "-",
+    'nilai2' => "-"
+  );
+  $ArrInsertUPD2 = array(
+    'id_siswa_kelas' => $idsk,
+    'semester' => 2,
+    'upd1' => "-",
+    'upd2' => "-",
+    'nilai1' => "-",
+    'nilai2' => "-"
+  );
+  $ArrInsertAbs1 = array(
+    'id_siswa_kelas' => $idsk,
+    'id_semester' => 1,
+    's' => "0",
+    'i' => "0",
+    'a' => "0"
+  );
+  $ArrInsertAbs2 = array(
+    'id_siswa_kelas' => $idsk,
+    'id_semester' => 2,
+    's' => "0",
+    'i' => "0",
+    'a' => "0"
+  );
+  $ArrInsertPrestasi1 = array(
+    'id_siswa_kelas' => $idsk,
+    'semester' => 1,
+    'prestasi1' => "-",
+    'prestasi2' => "-",
+    'prestasi3' => "-",
+    'keterangan1' => "-",
+    'keterangan2' => "-",
+    'keterangan3' => "-"
+  );
+  $ArrInsertPrestasi2 = array(
+    'id_siswa_kelas' => $idsk,
+    'semester' => 2,
+    'prestasi1' => "-",
+    'prestasi2' => "-",
+    'prestasi3' => "-",
+    'keterangan1' => "-",
+    'keterangan2' => "-",
+    'keterangan3' => "-"
+  );
+
+
+  $arraNilai = [];
+  $q = $this->M_Nilai->get_data('tb_mapel')->num_rows();
+  $cnt = $q;
+  for ($i = 1; $i <= $cnt ; $i++){
+    for($j = 1; $j <= 12; $j++){
+      for($k = 1; $k <= 2; $k++ ){
+        $arraNilai[] = [
+          "id_siswa_kelas" => $idsk,
+          "id_mapel" => $i,
+          "id_jenis" => $j,
+          "id_kategori" => $k,
+          "nilai" => '0'
+        ];
+        array_push($arraNilai);
+      }
+    }
+  }
+
+
+  // var_dump(json_encode($ArrInsertNilai));
+  // die();
+
+
+  // echo "<pre>";
+  // print_r($ArrInsert);
+  // echo "</pre>";
+  // $this->TuModel->insertDataSiswa($ArrInsert);
+  $this->TuModel->insertDataNilai($arraNilai);
+  $this->TuModel->insertDataUPD($ArrInsertUPD1);
+  $this->TuModel->insertDataUPD($ArrInsertUPD2);
+  $this->TuModel->insertDataAbs($ArrInsertAbs1);
+  $this->TuModel->insertDataAbs($ArrInsertAbs2);
+  $this->TuModel->insertDataPrestasi($ArrInsertPrestasi1);
+  $this->TuModel->insertDataPrestasi($ArrInsertPrestasi2);
+
+  $this->session->set_flashdata('simpan','Berhasil Ditambah');
+  redirect('Tu/siswa');
+}
+public function editsiswakelas($id_siswa_kelas)
+{
+  $data['dtsiswakelas'] = $this->TuModel->getDataSiswaKelasDetail($id_siswa_kelas);
+    
+  $data['rombel'] = $this->db->get('tb_rombel')->result();
+  $this->load->view('tu/editsiswakelas', $data);
+}
+public function fungsieditsiswakelas()
+  {
+    $rules = [
+      [
+        'field' => 'id_rombel',
+        'rules' => 'required',
+        'errors' => [
+          'required' => "<spam style='color: red;'>Rombel wajib diisi</span>"
+          ]
+      ]
+    ];
+    $id_rombel = $this->input->post('id_rombel');
+    $id_siswa_kelas = $this->input->post('id');
+    $nis = $this->input->post('nis');
+    
+
+    $this->form_validation->set_rules($rules);
+    if($this->form_validation->run()==FALSE){
+      
+      $data['dtsiswakelas'] = $this->TuModel->getDataSiswaKelasDetail($id_siswa_kelas);
+      $data['rombel'] = $this->db->get('tb_rombel')->result();
+      return $this->load->view('tu/editsiswakelas', $data);
+    }
+    $ArrUpdate = array(
+      'nis' => $nis,
+      // 'id_mapel' => $id_mapel,
+      'id_rombel' => $id_rombel
+    );
+    $this->TuModel->updateDataSiswaKelas($id_siswa_kelas, $ArrUpdate);
+    $this->session->set_flashdata('update','Berhasil Diubah');
+    // $nip = $this->input->post('nip');
+    
+    redirect("Tu/siswakelas/$nis");
+  }
 
 public function fungsiadd()
 {
@@ -214,13 +417,7 @@ public function fungsiadd()
         'required' => '<span style="color:red">Nama wajib diisi</span>'
       ]
     ],
-    [
-      'field' => 'rombel',
-      'rules' => 'required',
-      'errors' => [
-        'required' => '<span style="color:red">Rombel wajib diisi</span>'
-      ]
-    ],
+    
     [
       'field' => 'password',
       'rules' => 'required|min_length[8]',
@@ -232,7 +429,6 @@ public function fungsiadd()
   ];
   $nis = $this->input->post('nis');
   $nama = $this->input->post('nama');
-  $rombel = $this->input->post('rombel');
   $password = $this->input->post('password');
   $this->form_validation->set_rules($rules);
   if($this->form_validation->run()==FALSE){
@@ -241,7 +437,6 @@ public function fungsiadd()
   $ArrInsert = array(
     'nis' => $nis,
     'nama' => $nama,
-    'id_rombel' => $rombel,
     'username' => $nis,
     'password' => md5($password)
   );
@@ -252,75 +447,75 @@ public function fungsiadd()
   //   'username' => $username,
   //   'password' => md5($password)
   // );
-  $ArrInsertUPD1 = array(
-    'nis' => $nis,
-    'semester' => 1,
-    'upd1' => "-",
-    'upd2' => "-",
-    'nilai1' => "-",
-    'nilai2' => "-"
-  );
-  $ArrInsertUPD2 = array(
-    'nis' => $nis,
-    'semester' => 2,
-    'upd1' => "-",
-    'upd2' => "-",
-    'nilai1' => "-",
-    'nilai2' => "-"
-  );
-  $ArrInsertAbs1 = array(
-    'nis' => $nis,
-    'id_semester' => 1,
-    's' => "0",
-    'i' => "0",
-    'a' => "0"
-  );
-  $ArrInsertAbs2 = array(
-    'nis' => $nis,
-    'id_semester' => 2,
-    's' => "0",
-    'i' => "0",
-    'a' => "0"
-  );
-  $ArrInsertPrestasi1 = array(
-    'nis' => $nis,
-    'semester' => 1,
-    'prestasi1' => "-",
-    'prestasi2' => "-",
-    'prestasi3' => "-",
-    'keterangan1' => "-",
-    'keterangan2' => "-",
-    'keterangan3' => "-"
-  );
-  $ArrInsertPrestasi2 = array(
-    'nis' => $nis,
-    'semester' => 2,
-    'prestasi1' => "-",
-    'prestasi2' => "-",
-    'prestasi3' => "-",
-    'keterangan1' => "-",
-    'keterangan2' => "-",
-    'keterangan3' => "-"
-  );
+  // $ArrInsertUPD1 = array(
+  //   'nis' => $nis,
+  //   'semester' => 1,
+  //   'upd1' => "-",
+  //   'upd2' => "-",
+  //   'nilai1' => "-",
+  //   'nilai2' => "-"
+  // );
+  // $ArrInsertUPD2 = array(
+  //   'nis' => $nis,
+  //   'semester' => 2,
+  //   'upd1' => "-",
+  //   'upd2' => "-",
+  //   'nilai1' => "-",
+  //   'nilai2' => "-"
+  // );
+  // $ArrInsertAbs1 = array(
+  //   'nis' => $nis,
+  //   'id_semester' => 1,
+  //   's' => "0",
+  //   'i' => "0",
+  //   'a' => "0"
+  // );
+  // $ArrInsertAbs2 = array(
+  //   'nis' => $nis,
+  //   'id_semester' => 2,
+  //   's' => "0",
+  //   'i' => "0",
+  //   'a' => "0"
+  // );
+  // $ArrInsertPrestasi1 = array(
+  //   'nis' => $nis,
+  //   'semester' => 1,
+  //   'prestasi1' => "-",
+  //   'prestasi2' => "-",
+  //   'prestasi3' => "-",
+  //   'keterangan1' => "-",
+  //   'keterangan2' => "-",
+  //   'keterangan3' => "-"
+  // );
+  // $ArrInsertPrestasi2 = array(
+  //   'nis' => $nis,
+  //   'semester' => 2,
+  //   'prestasi1' => "-",
+  //   'prestasi2' => "-",
+  //   'prestasi3' => "-",
+  //   'keterangan1' => "-",
+  //   'keterangan2' => "-",
+  //   'keterangan3' => "-"
+  // );
 
 
-  $arraNilai = [];
-  $q = $this->M_Nilai->get_data('tb_mapel')->num_rows();
-  $cnt = $q;
-  for ($i = 1; $i <= $cnt ; $i++){
-    for($j = 1; $j <= 12; $j++){
-      for($k = 1; $k <= 2; $k++ ){
-        $arraNilai[] = [
-          "nis" => $nis,
-          "id_mapel" => $i,
-          "id_jenis" => $j,
-          "id_kategori" => $k,
-          "nilai" => '0'
-        ];
-        array_push($arraNilai);
-      }
-    }
-  }
+  // $arraNilai = [];
+  // $q = $this->M_Nilai->get_data('tb_mapel')->num_rows();
+  // $cnt = $q;
+  // for ($i = 1; $i <= $cnt ; $i++){
+  //   for($j = 1; $j <= 12; $j++){
+  //     for($k = 1; $k <= 2; $k++ ){
+  //       $arraNilai[] = [
+  //         "nis" => $nis,
+  //         "id_mapel" => $i,
+  //         "id_jenis" => $j,
+  //         "id_kategori" => $k,
+  //         "nilai" => '0'
+  //       ];
+  //       array_push($arraNilai);
+  //     }
+  //   }
+  // }
 
 
   // var_dump(json_encode($ArrInsertNilai));
@@ -331,14 +526,6 @@ public function fungsiadd()
   // print_r($ArrInsert);
   // echo "</pre>";
   $this->TuModel->insertDataSiswa($ArrInsert);
-  $this->TuModel->insertDataNilai($arraNilai);
-  $this->TuModel->insertDataUPD($ArrInsertUPD1);
-  $this->TuModel->insertDataUPD($ArrInsertUPD2);
-  $this->TuModel->insertDataAbs($ArrInsertAbs1);
-  $this->TuModel->insertDataAbs($ArrInsertAbs2);
-  $this->TuModel->insertDataPrestasi($ArrInsertPrestasi1);
-  $this->TuModel->insertDataPrestasi($ArrInsertPrestasi2);
-
   $this->session->set_flashdata('simpan','Berhasil Ditambah');
   redirect('Tu/siswa');
 }
@@ -631,13 +818,7 @@ public function fungsieditsiswa(){
         'required' => '<span style="color:red;">NIS wajib diisi</span>'
       ]
     ],
-    [
-      'field' => 'rombel',
-      'rules' => 'required',
-      'errors' => [
-        'required' => '<span style="color:red;">Rombel wajib diisi</span>'
-      ]
-    ],
+    
     [
       'field' => 'nama',
       'rules' => 'required',
@@ -654,7 +835,6 @@ public function fungsieditsiswa(){
     ]
   ];
   $nis = $this->input->post('nis');
-  $rombel = $this->input->post('rombel');
   $nama = $this->input->post('nama');
   $username = $this->input->post('username');
   $this->form_validation->set_rules($rules);
@@ -666,7 +846,6 @@ public function fungsieditsiswa(){
     return $this->load->view('tu/editsiswa', $DATA);
   }
   $ArrUpdate = array(
-    'id_rombel' => $rombel,
     'nis' => $nis,
     'nama' => $nama,
     'username' => $username
@@ -686,13 +865,13 @@ public function datarapotdetail()
         // var_dump($sem);
         
 
-        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $nis");
-        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.nis = tb_siswa.nis and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");    
-        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_upd WHERE tb_siswa.nis = tb_upd.nis and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_upd.nis = $nis");  
-        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_prestasi WHERE tb_siswa.nis = tb_prestasi.nis and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");  
+        $data['content'] = $this->db->query("SELECT * FROM tb_siswa_kelas,tb_siswa,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa_kelas.id_siswa_kelas = $nis and tb_siswa.nis = tb_siswa_kelas.nis");
+        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa,tb_siswa_kelas where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_semester.id_semester = $sem and tb_siswa.nis = tb_siswa_kelas.nis and tb_siswa_kelas.id_siswa_kelas = $nis");    
+        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_upd,tb_siswa_kelas WHERE tb_siswa_kelas.id_siswa_kelas = tb_upd.id_siswa_kelas and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_upd.id_siswa_kelas = $nis");  
+        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa_kelas,tb_prestasi WHERE tb_siswa_kelas.id_siswa_kelas = tb_prestasi.id_siswa_kelas and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa_kelas.id_siswa_kelas = $nis");  
 
-        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
-        $sintakkategori = "and tb_siswa.nis = $nis and tb_nilai.id_kategori";
+        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa_kelas,tb_siswa,tb_rombel,tb_nilai WHERE tb_siswa.nis = tb_siswa_kelas.nis and tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
+        $sintakkategori = "and tb_siswa_kelas.id_siswa_kelas = $nis and tb_nilai.id_kategori";
 
         
 
@@ -736,13 +915,13 @@ public function cetakrapot()
         $sem = $this->uri->segment(3);
 
 
-        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_rombel WHERE tb_siswa.id_rombel = tb_rombel.id_rombel  and tb_siswa.nis = $nis");
-        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.nis = tb_siswa.nis and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");    
-        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_upd WHERE tb_siswa.nis = tb_upd.nis and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_upd.nis = $nis");  
-        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa,tb_prestasi WHERE tb_siswa.nis = tb_prestasi.nis and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa.nis = $nis");  
+        $data['content'] = $this->db->query("SELECT * FROM tb_siswa,tb_siswa_kelas,tb_rombel WHERE tb_siswa_kelas.id_rombel = tb_rombel.id_rombel and tb_siswa.nis = tb_siswa_kelas.nis and tb_siswa_kelas.id_siswa_kelas = $nis");
+        $data['sem'] = $this->db->query("SELECT * FROM tb_semester,tb_absensi,tb_siswa,tb_siswa_kelas where tb_absensi.id_semester = tb_semester.id_semester and tb_absensi.id_siswa_kelas = tb_siswa_kelas.id_siswa_kelas and tb_semester.id_semester = $sem and tb_siswa.nis = tb_siswa_kelas.nis and tb_siswa_kelas.id_siswa_kelas = $nis");    
+        $data['upd'] = $this->db->query("SELECT * FROM tb_semester,tb_upd,tb_siswa_kelas WHERE tb_siswa_kelas.id_siswa_kelas = tb_upd.id_siswa_kelas and tb_semester.id_semester = tb_upd.semester and tb_semester.id_semester = $sem and tb_upd.id_siswa_kelas = $nis");  
+        $data['prestasi'] = $this->db->query("SELECT * FROM tb_semester,tb_siswa_kelas,tb_prestasi WHERE tb_siswa_kelas.id_siswa_kelas = tb_prestasi.id_siswa_kelas and tb_semester.id_semester = tb_prestasi.semester and tb_semester.id_semester = $sem and tb_siswa_kelas.id_siswa_kelas = $nis");  
         
-        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa,tb_rombel,tb_nilai WHERE tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa.nis = tb_nilai.nis and tb_siswa.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
-        $sintakkategori = "and tb_siswa.nis = $nis and tb_nilai.id_kategori";
+        $sintakjenis = "SELECT * FROM tb_mapel,tb_siswa_kelas,tb_siswa,tb_rombel,tb_nilai WHERE tb_siswa.nis = tb_siswa_kelas.nis and tb_mapel.id_mapel = tb_nilai.id_mapel and tb_siswa_kelas.id_siswa_kelas = tb_nilai.id_siswa_kelas and tb_siswa_kelas.id_rombel = tb_rombel.id_rombel AND tb_nilai.id_jenis";
+        $sintakkategori = "and tb_siswa_kelas.id_siswa_kelas = $nis and tb_nilai.id_kategori";
 
         
 

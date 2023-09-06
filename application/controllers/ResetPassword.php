@@ -10,6 +10,11 @@ class ResetPassword extends CI_Controller {
 
         $this->load->model('TuModel');
         $this->load->model('KepsekModel');
+        $this->load->model('GuruModel');
+        $this->load->model('OrtuModel');
+        $this->load->model('PsModel');
+        $this->load->model('SiswaModel');
+        $this->load->model('TuModel');
     }
 
     public function index () {
@@ -44,6 +49,36 @@ class ResetPassword extends CI_Controller {
                 $this->KepsekModel->insertToken($username, $data);
 
             }
+        }else if($type == 'guru'){
+            $user = $this->GuruModel->get($username);
+            if($user){
+                $this->GuruModel->insertToken($username, $data);
+
+            }
+        }else if($type == 'Ortu'){
+            $user = $this->OrtuModel->get($username);
+            if($user){
+                $this->OrtuModel->insertToken($username, $data);
+
+            }
+        }else if($type == 'ps'){
+            $user = $this->PsModel->get($username);
+            if($user){
+                $this->PsModel->insertToken($username, $data);
+
+            }
+        }else if($type == 'siswa'){
+            $user = $this->SiswaModel->get($username);
+            if($user){
+                $this->SiswaModel->insertToken($username, $data);
+
+            }
+        }else if($type == 'tu'){
+            $user = $this->TuModel->get($username);
+            if($user){
+                $this->TuModel->insertToken($username, $data);
+
+            }
         }
 
         if($user){
@@ -72,6 +107,26 @@ class ResetPassword extends CI_Controller {
             if($type == 'kepsek'){
                 $this->KepsekModel->insertPassword($token, ['password' => md5($password)]);
                 redirect('/loginKepsek');
+            }
+            if($type == 'guru'){
+                $this->GuruModel->insertPassword($token, ['password' => md5($password)]);
+                redirect('/loginGuru');
+            }
+            if($type == 'ortu'){
+                $this->OrtuModel->insertPassword($token, ['password' => md5($password)]);
+                redirect('/loginOrtu');
+            }
+            if($type == 'ps'){
+                $this->PsModel->insertPassword($token, ['password' => md5($password)]);
+                redirect('/loginPs');
+            }
+            if($type == 'siswa'){
+                $this->SiswaModel->insertPassword($token, ['password' => md5($password)]);
+                redirect('/loginSiswa');
+            }
+            if($type == 'tu'){
+                $this->TuModel->insertPassword($token, ['password' => md5($password)]);
+                redirect('/loginTu');
             }
         }
 

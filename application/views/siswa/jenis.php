@@ -21,6 +21,7 @@
 
                 <!-- Semester 1 -->
                  <?php 
+                 $thn = $this->uri->segment(4);
                 if ($this->uri->segment(3) == 1) {
                     ?>
 
@@ -28,7 +29,7 @@
              <div class="row">
                     <!-- Portfolio Item 1-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <a href="<?php echo base_url('murid/hasil/1') ?>">
+                        <a href="<?php echo base_url('murid/hasil/1/') ?><?php echo $thn ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
@@ -39,7 +40,7 @@
                     </div>
                     <!-- Portfolio Item 2-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <a href="<?php echo base_url('murid/hasil/2') ?>">
+                        <a href="<?php echo base_url('murid/hasil/2/') ?><?php echo $thn ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
@@ -50,7 +51,7 @@
                     </div>
                     <!-- Portfolio Item 3-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <a href="<?php echo base_url('murid/hasil/3') ?>">
+                        <a href="<?php echo base_url('murid/hasil/3/') ?><?php echo $thn ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
@@ -61,7 +62,7 @@
                     </div>
                     <!-- Portfolio Item 4-->
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                    <a href="<?php echo base_url('murid/hasil/4') ?>">
+                    <a href="<?php echo base_url('murid/hasil/4/') ?><?php echo $thn ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
@@ -71,7 +72,7 @@
                         </div>
                     </div>
                     <!-- Portfolio Item 5-->
-                    <a href="<?php echo base_url('murid/hasil/9') ?>">
+                    <a href="<?php echo base_url('murid/hasil/9/') ?><?php echo $thn ?>">
                     <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
@@ -82,7 +83,7 @@
                         </div>
                     </div>
                     <!-- Portfolio Item 6-->
-                    <a href="<?php echo base_url('murid/hasil/10') ?>">
+                    <a href="<?php echo base_url('murid/hasil/10/') ?><?php echo $thn ?>">
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
@@ -102,7 +103,7 @@
                 <div class="row">
                     <!-- Portfolio Item 1-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <a href="<?php echo base_url('murid/hasil/5') ?>">
+                        <a href="<?php echo base_url('murid/hasil/5/') ?><?php echo $thn ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
@@ -113,7 +114,7 @@
                     </div>
                     <!-- Portfolio Item 2-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <a href="<?php echo base_url('murid/hasil/6') ?>">
+                        <a href="<?php echo base_url('murid/hasil/6/') ?><?php echo $thn ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
@@ -124,7 +125,7 @@
                     </div>
                     <!-- Portfolio Item 3-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <a href="<?php echo base_url('murid/hasil/7') ?>">
+                        <a href="<?php echo base_url('murid/hasil/7/') ?><?php echo $thn ?>">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
@@ -134,7 +135,7 @@
                         </div>
                     </div>
                     <!-- Portfolio Item 4-->
-                    <a href="<?php echo base_url('murid/hasil/8') ?>">
+                    <a href="<?php echo base_url('murid/hasil/8/') ?><?php echo $thn ?>">
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
@@ -145,7 +146,7 @@
                         </div>
                     </div>
                     <!-- Portfolio Item 5-->
-                    <a href="<?php echo base_url('murid/hasil/11') ?>">
+                    <a href="<?php echo base_url('murid/hasil/11/') ?><?php echo $thn ?>">
                     <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
@@ -156,7 +157,7 @@
                         </div>
                     </div>
                     <!-- Portfolio Item 6-->
-                    <a href="<?php echo base_url('murid/hasil/12') ?>">
+                    <a href="<?php echo base_url('murid/hasil/12/') ?><?php echo $thn ?>">
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">

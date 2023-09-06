@@ -18,34 +18,34 @@
                     
                         <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Data Siswa</h5>
+                                    <div class="card-body"><h5 class="card-title">Penempatan Kelas</h5>
 
-                                    <a href="<?= base_url('Tu/addsiswa') ?>" class="btn btn-primary mt-2 mb-4">Tambah Baru</a>
-                                        
-                                        <?php if($hapus = $this->session->flashdata('hapus')): ?>
-                                        <div id="notif" class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">x</button>
-                                            <?= $hapus ?>
-                                        </div>
-                                        <?php endif ?>
-                                        <?php if($simpan = $this->session->flashdata('simpan')): ?>
-                                        <div id="notif" class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">x</button>
-                                            <?= $simpan ?>
-                                        </div>
-                                        <?php endif ?>
-                                        <?php if($update = $this->session->flashdata('update')): ?>
-                                        <div id="notif" class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">x</button>
-                                            <?= $update ?>
-                                        </div>
-                                        <?php endif ?>
+                                    <a href="<?= base_url('Tu/addsiswakelas') ?>/<?php echo $nissiswa->nis?>" class="btn btn-primary mt-2 mb-4">Tambah Baru</a>
+                                    <?php if($hapus = $this->session->flashdata('hapus')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $hapus ?>
+                                    </div>
+                                    <?php endif ?>
+                                    <?php if($simpan = $this->session->flashdata('simpan')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $simpan ?>
+                                    </div>
+                                    <?php endif ?>
+                                    <?php if($update = $this->session->flashdata('update')): ?>
+                                    <div id="notif" class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <?= $update ?>
+                                    </div>
+                                    <?php endif ?>
                                         <table class="mb-0 table table-striped">
                                             <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nis</th>
-                                                <th>Nama </th>
+                                                <th>NIS</th>
+                                                <th>Rombel</th>
+                                                <th>Tahun Ajaran</th>
                                                 <th>Aksi</th>
                                             </tr>
                                             </thead>
@@ -53,17 +53,17 @@
                                             <tbody>
                                                 <?php
                                                 $no = 1; 
-                                                foreach ($dtsiswa as $key) {
+                                                foreach ($dtsiswakelas as $key) {
                                                     ?>
                                             <tr>
                                                 <td><?php echo $no++ ?></td>
                                                 <td><?php echo $key->nis ?></td>
-                                                
-                                                <td><?php echo $key->nama ?></td>
+                                                <td><?php echo $key->rombel ?></td>
+                                                <td><?php echo $key->tahun_ajaran ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url('Tu/siswakelas')?>/<?php echo $key->nis?>"style="margin-right: 30px;">Penempatan Kelas</a>
-                                                    <a href="<?php echo base_url('Tu/editsiswa')?>/<?php echo $key->nis?>"style="margin-right: 30px;">Ubah Data</a>
-                                                    <a href="<?php echo base_url('Tu/hapussiswa')?>/<?php echo $key->nis?>">Hapus Data</a>
+                                                    <a href="<?php echo base_url('Tu/editsiswakelas')?>/<?php echo $key->id_siswa_kelas?>" style="margin-right: 30px;">Ubah Data</a>
+                                                    <!-- <a href="<?php echo base_url('Tu/hapussiswakelas')?>/<?php echo $key->id_siswa_kelas?>">Hapus Data</a> -->
+                                                </td>
                                             </tr>
                                             
                                                 <?php 
